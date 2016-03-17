@@ -200,16 +200,17 @@ class CRes{
             case "Edit":
                 return $is_author;
             case "Delete":
-                return $is_author;
+                return $is_author | $is_manager;
         }
     }/* return: boolean */
     static function ResDirPermissionQ($permission, $row){//_
         $is_author = (int)$row['author_bbsid'] == (int)$_SESSION['bbs_uid'];
+        $is_manager     = in_array((int)$_SESSION['bbs_groupid'], array(1, 2, 3));// || (int)$_SESSION['bbs_uid']==103896;
         switch($permission){
             case "Edit":
                 return $is_author;
             case "Delete":
-                return $is_author;
+                return $is_author | $is_manager;
         }
     }/* return: boolean */
     static function IsAuthor  ($row){//_
