@@ -1,0 +1,336 @@
+@charset "utf-8";
+
+/*  更新记录
+    2015/08/03 雪星(997596@gmail.com)
+    创建
+*/
+
+.resview{
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    max-width: 1200px;
+    min-width: 600px;
+}
+.resview>*{
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 8px 0px;
+}
+.resview>.header {
+    text-align: left;
+}
+.resview>.header >.e_type{
+    display: inline-block;
+    font-size: 4em;
+    line-height: 1em;
+    margin: 0;
+    padding: 0 0.2em 0 0;
+    color: gold;
+    text-shadow: 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+                 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+}
+.resview>.header >.e_type:before{
+    content: "[";
+}
+.resview>.header >.e_type:after{
+    content: "]";
+}
+.resview>.header >.title{
+    padding: 0 0 0 0.2em;
+    display: inline-block;
+    font-size: 4em;
+    line-height: 1em;
+    margin: 0;
+    text-align: left;
+}
+.resview>.content{
+    display: inline-block;
+    background: #ffffff;
+    text-align: center;
+    /* 框框{{ */
+    background-image: url('http://www.hawkaoc.net/bbs/images/aoc/kabg.gif');
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow: 0 -1px 0 #57391B inset,
+                1px  0 0 #57391B inset,
+                0  1px 0 #FFE2A1 inset,
+                -1px 0 0 #FFE2A1 inset;
+    padding: 1px;
+    /* }}*/
+}
+.resview>.content{
+    display: inline-block;
+    vertical-align: top;
+}
+.resview>.content>*{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0; padding: 0;
+}
+.resview>.content>ul.main{
+    height: 600px;
+    width: 800px;
+    margin: 0;
+    padding: 0;
+    background: #0C1021;
+    overflow: hidden;
+}
+.resview>.content>ul.main>li{
+    display: block;
+    width: 800px;
+    height: 600px;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    background-color: transparent;
+    text-indent: 2em;
+    overflow: auto;
+    text-align: center;
+    writing-mode: tb-rl;
+}
+.resview>.content>ul.main>li.content{
+    text-align: left;
+    line-height: 1.8em;
+    text-shadow: none;
+    text-indent: 2em;
+}
+.resview>.content>ul.main>li img{
+    display: block;
+    margin: auto;
+    padding: 0;
+}
+.resview>.content>.side{
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 200px;
+}
+.resview>.content>.side>ul.info{
+    display: block;
+    padding: 0;
+    margin: 0;
+    max-height: 600px;
+}
+.resview>.content>.side>ul.info>li{
+    display: block;
+    padding: 0 0;
+    max-width: 200px;
+}
+.resview>.content>.side>ul.info>li a{
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-family: KaiTi;
+    font-weight: 100;
+    margin: 5px;
+    color: #FF0;
+    padding: 0.1em 0;
+}
+.resview>.content>.side>ul.info>li a:first-line{
+    display: block;
+    font-size: 1.5em;
+}
+.resview>.content>.side>ul.info>li a[href]{
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
+    border-top:    solid 1px #E4B479;
+    border-right:  solid 1px #E4B479;
+    border-bottom: solid 1px #6F4F2E;
+    border-left:   solid 1px #6F4F2E;
+    background-color: rgba(30,17,10,0.7);
+    text-shadow: 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+                 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    box-shadow: 0 -1px 0 #895932 inset,
+                1px  0 0 #895932 inset,
+                0  1px 0 #B88851 inset,
+                -1px 0 0 #B88851 inset,
+                0 -2px 0 #966638 inset,
+                2px  0 0 #966638 inset,
+                0  2px 0 #A36D3A inset,
+                -2px 0 0 #A36D3A inset;
+}
+.resview>.content>.side>ul.info>li a#install{font-size: 2em;color: orange;}
+.resview>.content>.side>ul.info>li a#source{}
+.resview>.content>.side>ul.info>li a#author{}
+.resview>.content>.side>ul.info>li #update{}
+.resview>.content>.side>ul.info>li #author{}
+.resview>.content>.side>ul.index-img{
+    background-color: rgba(30,17,10,0.7);
+    display: block;
+    font-family: KaiTi;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    line-height: 150px;
+    font-size: 2em;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.resview>.content>.side>ul.index-img>li{
+    display: block;
+    height: 150px;
+    width: 200px;
+    border-bottom: solid #000 1px;
+}
+.resview>.content>.side>ul.index-img>li>a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #FF0;
+    background-position: 50% 50%;
+    background-size: cover;
+    text-decoration: none;
+}
+.resview>.content>.side>ul.index-img>li>.content{
+    font-size: 3em;
+}
+.resview>.tags{
+    text-align: left;
+    font-size: 16px;
+}
+.resview>.tags:before{
+    content: "标签: "
+}
+.resview>.tags>li{
+    display: inline-block;
+    /* 框框{{ */
+    background-image: url('http://www.hawkaoc.net/bbs/images/aoc/kabg.gif');
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow: 0 -1px 0 #57391B inset,
+                1px  0 0 #57391B inset,
+                0  1px 0 #FFE2A1 inset,
+                -1px 0 0 #FFE2A1 inset;
+    padding: 0.4em 1em;
+    /* }}*/
+    font-size: 16px;
+}
+.resview>.tags>li a{
+    display: block;
+    color: #FF0;
+    text-shadow: 1px 1px #000;
+}
+.resview>.tags>li a[href]{
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
+}
+.resview>.review-comment{
+    margin: 0; padding: 0;
+}
+.resview>.review-comment>li{
+    direction: rtl;
+    margin: 0; padding: 0;
+    display: block;
+    /* 背景框{{ */
+    background-image: url('http://www.hawkaoc.net/bbs/images/aoc/kabg.gif');
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow: 0 -1px 0 #57391B inset,
+                1px  0 0 #57391B inset,
+                0  1px 0 #FFE2A1 inset,
+                -1px 0 0 #FFE2A1 inset;
+    /* }}*/
+    text-shadow: 1px 1px #000;
+    font-size: 16px;
+    padding: 1px;
+    margin: 8px 0;
+}
+.resview>.review-comment>li .header{
+    direction: initial;
+    display: inline-block;
+    vertical-align: top;
+    direction: initial;
+    width: 200px;
+    height: 100%;
+    margin: 0; padding: 0;
+    text-shadow: 1px 1px #000;
+    text-align: left;
+}
+.resview>.review-comment>li .header>.author{
+    display: inline-block;
+}
+.resview>.review-comment>li .header>.update{
+    display: inline-block;
+}
+.resview>.review-comment>li .header>.vote  {
+    display: block;
+}
+.resview>.review-comment>li .main{
+    direction: initial;
+    display: inline-block;
+    vertical-align: top;
+    width: 800px;
+}
+.resview>.review-comment>li .main>.content{
+    width: 800px;
+    border: none;
+    font-size: 16px;
+    text-align: left;
+    display: block;
+}
+.resview>.review-comment>li .main>.btnbar{
+    text-align: right;
+    display: block;
+}
+.resview>.review-comment>li .main>.btnbar>li{
+    display: inline-block;
+}
+.resview>.review-comment>li .main>.btnbar>li>a,
+.resview>.review-comment>li .main>.btnbar>li>input[type="submit"]{
+    text-shadow: -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,
+                 -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000;
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow: 0 -1px 0 #57391B inset,
+                1px  0 0 #57391B inset,
+                0  1px 0 #FFE2A1 inset,
+                -1px 0 0 #FFE2A1 inset;
+    background-color: #937150;
+    color: #FFF;
+    cursor: url("cursor/aoe2hand.cur"), pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 20px;
+    padding: 0 1em;
+    text-decoration: none;
+    transition: border 0.5s, box-shadow 0.5s, text-shadow 0.5s;
+}
+.resview>.review-comment>li .main>.btnbar>a:active,
+.resview>.review-comment>li .main>.btnbar>li>input[type="submit"]:active{
+    text-shadow: 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+                 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    border-top:    solid 1px #462006;
+    border-right:  solid 1px #462006;
+    border-bottom: solid 1px #D8DFFF;
+    border-left:   solid 1px #D8DFFF;
+    box-shadow: 0  1px 0 #57391B inset, -1px 0 0 #57391B inset;
+}
+.resview>.review {}
+.resview>.review >li{
+}
+.resview>.review >li{
+}
+.resview>.review >li .main>.header{
+}
+.resview>.review >li .main>.content{
+    min-height: 6em;
+    line-height: 1.2em;
+}
+.resview>.comment{}
+.resview>.comment>li{}
+.resview>.comment>li .main>.header{}
+.resview>.comment>li .main>.content{
+    min-height: 3em;
+    line-height: 1em;
+}
+.resview>.comment>li .main>.btnbar{}

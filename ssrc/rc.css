@@ -1,0 +1,555 @@
+@charset "utf-8";
+
+/*  更新记录
+    2015/07/04 雪星(997596@gmail.com)
+    创建
+*/
+
+
+
+/***************************************************************
+****************************************************************
+****************************************************************
+****************************************************************
+    全局
+
+****************************************************************
+****************************************************************
+****************************************************************
+***************************************************************/
+
+body::before{
+    content: "";
+    background-color: transparent;
+    height: 0;
+}
+html{
+    cursor: url("cursor/aoe2normal.cur"), default;
+    background: lightslategray;
+}/*背景, 指针*/
+body{
+    background: darkcyan;
+    margin: 0;
+}/*背景, 边距*/
+
+body>#header, body>#footer{
+    font-weight: 400;
+    font-family: "SimSun", serif;
+}/* 各标题字体 */
+body>#header, body>#footer, .btn-mini{
+    color: white;
+    font-size: 12px;
+    text-shadow: -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,
+                 -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000;
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow: 0 -1px 0 #57391B inset,
+                1px  0 0 #57391B inset,
+                0  1px 0 #FFE2A1 inset,
+                -1px 0 0 #FFE2A1 inset;
+    text-decoration: none;
+    transition: border 0.5s, box-shadow 0.5s, text-shadow 0.5s;
+}
+.btn-mini{
+    cursor: url("cursor/aoe2hand.cur"), pointer;
+    background-color: #937150;
+}/*小按钮指针, 背景*/
+.btn-mini:active{
+    text-shadow: 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+                 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    border-top:    solid 1px #462006;
+    border-right:  solid 1px #462006;
+    border-bottom: solid 1px #D8DFFF;
+    border-left:   solid 1px #D8DFFF;
+    box-shadow: 0  1px 0 #57391B inset, -1px 0 0 #57391B inset;
+}
+body>#header, body>#footer{
+    background-color: #E9BB7B;
+    background-image: url('http://www.hawkaoc.net/bbs/images/aoc/kabg.gif');
+}
+body>#footer{
+    padding: 2em 0;
+    background: url("./image/hawk.png") 50% 50% no-repeat, url('http://www.hawkaoc.net/bbs/images/aoc/kabg.gif'), #E9BB7B;
+    background-size: contain;
+}
+body>#header .nav{
+    display: inline-flex;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    border-collapse:separate;
+    border-spacing: 2px 2px;
+
+}
+body>#header .nav li{
+    display: inline-block;
+    border: 1px, solid;
+    margin: 2px;
+}
+body>#header .nav li a{
+    border: 1px, solid;
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
+    width: 107px;
+}
+
+body>#content{
+    background-color: #27344F;
+    color: white;
+    display: block;
+    margin: auto 0;
+    overflow: auto;
+    padding: 12px;
+    text-align: center;
+    text-shadow: 0 0 2em,0 0 1em, #000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0, #000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0, 0 0 0,0 0 0,0 0 0,0 0 0, 0 0 0,0 0 0,0 0 0,0 0 0;
+    perspective: 768;
+    -webkit-perspective: 800;
+    font-family: "SimSun";
+    font-size: 12px;
+    font-weight: 800;
+}/* ?? */
+h1, h2, h3, h4, h5, h6{
+    color: #D7D1B0;
+    display: block;
+    font-family: "KaiTi";
+    margin: 0.4em 0 1em;
+    text-align: center;
+    text-shadow: #27344F 0 0 2em, #27344F 0 0 1em, #000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,#000 -1px 1px 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0,0 0 0;
+}/* 米黄色标题 */
+
+#known{
+    display: none;
+}
+#known + label.msg{
+    cursor: url("cursor/aoe2normal.cur"), default;
+    display: block;
+    margin: 1em;
+    text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    line-height: 3em;
+    color: white;
+    font-size: 12px;
+    text-shadow: -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,
+                 -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000;
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow:
+                0 -1px 0 #57391B inset,
+                1px  0 0 #57391B inset,
+                0  1px 0 #FFE2A1 inset,
+                -1px 0 0 #FFE2A1 inset;
+    text-decoration: none;
+    background-color: #E9BB7B;
+    background-image: url('http://www.hawkaoc.net/bbs/images/aoc/kabg.gif');
+    white-space: pre;
+    transition: height 1s, cursor 1s, line-height 1s;
+}
+#known:checked + label.msg{
+    cursor: url("cursor/aoe2normal.cur"), default;
+    height: 2em;
+    line-height: 2em;
+}
+
+/***************************************************************
+****************************************************************
+****************************************************************
+****************************************************************
+    资源展示
+****************************************************************
+****************************************************************
+****************************************************************
+***************************************************************/
+
+@keyframes bgImageMoving{
+  0% {background-position:  50%  50%;}
+ 33% {background-position:   0%   0%;}
+ 66% {background-position: 100% 100%;}
+100% {background-position:  50%  50%;}
+}
+.lsres{
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+}
+.lsres .res{
+    margin: 0.5em;
+    padding: 0;
+    min-width: 25em;
+    max-width: 30em;
+    width: 30em;
+    background-color: whitesmoke;
+    box-shadow: 0 0 5px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-repeat: repeat;
+    background-position: 50% 50%;
+    background-attachment: scroll;
+    background-clip: content-box;
+    background-size: cover;
+    /* transition: transform 0.5s; /* , background-position 1s; */
+    transform-origin: bottom;
+    /* transform: rotate3d(0,1,0, 5deg); */
+}
+.lsres .res:hover{
+    animation: bgImageMoving 10s infinite alternate;
+    transform: rotate3d(0,0,0, 5deg);
+}
+.lsres .res .name{
+    background-color: rgba(127, 127, 127, 0.5);
+    color: #fff;
+    text-shadow:
+    0 0 1px #000,0 0 1px #000,0 0 1px #000,0 0 1px #000;
+    display: block;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: left;
+    padding: 0;
+    overflow-y: hidden;
+    width: 100%;
+}
+.lsres .res .ctrl{
+    display: block;
+    font-size: 12px;
+    font-family: 'SimSun';
+    float: right;
+    left: 2em;
+    overflow: visible;
+    padding: 0;
+    transition: left 1s;
+    width: 0;
+    position: relative;
+    z-index: 1;
+}
+.lsres .res-file .ctrl{
+    display: flex;
+    width: initial;
+}
+.lsres .res .ctrl .btn{
+    white-space: nowrap;
+    text-align: center;
+    font-size: 12px;
+    font-family: 'SimSun';
+    float: right;
+    color: cyan;
+    display: block;
+    left: 0em;
+    line-height: 2em;
+    position: relative;
+    text-decoration: none;
+    text-shadow:
+    0 0 1px #000,0 0 1px #000,0 0 1px #000,0 0 1px #000,
+    0 0 1px #000,0 0 1px #000,0 0 1px #000,0 0 1px #000;
+    transition: left 1s;
+    padding: 0;
+    text-align: center;
+}
+.lsres .res .ctrl:hover{
+    left: 0em;
+    transition: left 0.1s;
+}
+.lsres .res .ctrl .btn[href]{
+    cursor: url("cursor/aoe2hand.cur"), pointer;
+}
+.lsres .res .ctrl .btn[href]:hover{
+    left: -1em;
+    transition: left 0.1s;
+}
+.lsres .res .ctrl .btn.disabled{
+    color: #888
+}
+.lsres .res .ctrl .btn.info    {
+    color: #FF0
+}
+.lsres .res .ctrl .btn.link    {
+    color: #F88
+}
+.lsres .res .ctrl .btn.download{
+    color: #F0F
+}
+.lsres .res .ctrl .btn.del     {
+    color: #F00
+}
+.lsres .res .content{
+    display: block;
+    text-decoration: none;
+    color: #000;
+    opacity: 0.2;
+    font-size: 15px;
+    font-weight:100;
+    height: 100%;
+    height: calc(100% - 18px);
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    transition: opacity 1s, background 1s, padding 0.5s, width 0.5s;
+    width: 100%;
+    text-align: left;
+    text-shadow: none;
+    max-height: 16em;
+    white-space: pre-wrap;
+}
+.lsres .res .content:hover,
+.lsres .res .content:focus,
+.lsres .res .content-textonly{
+    opacity: 1;
+    padding: 0 2em 0em 0.5em;
+    background: rgba(245,245,245,0.8);
+    height: 90%;
+    height: calc(100% - 18px);
+    width: initial;
+    width: calc(100% - 2.5em);
+}
+
+
+
+/***************************************************************
+****************************************************************
+****************************************************************
+****************************************************************
+    表单排版
+****************************************************************
+****************************************************************
+****************************************************************
+***************************************************************/
+
+
+
+
+.steps{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+}
+.form{
+    display: inline-block;
+    vertical-align: text-top;
+    padding: 1em;
+    background-color: #E9BB7B;
+    background-image: url('http://www.hawkaoc.net/bbs/images/aoc/kabg.gif');
+}
+.form [type], .form select, .form>a{
+    background:  rgba(0,0,0, 0.8);
+    border-bottom: solid 1px #EEEAA3;
+    border-left:   solid 1px #EEEAA3;
+    border-right:  solid 1px #5F5D10;
+    border-top:    solid 1px #5F5D10;
+    box-shadow: 0 1px 0 #64647F inset,-1px 0 0 #64647F inset,0 -1px 0 #9FAEA1 inset,1px 0 0 #9FAEA1 inset;
+    color: #FFF;
+    cursor: url("cursor/aoe2hand.cur"), pointer;
+    display: inline-block;
+    font-family: "SimSun";
+    font-family: "SimSun";
+    font-size: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    font-weight: 800;
+    margin: 0.2em;
+    min-width: 20em;
+    text-shadow: 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    vertical-align: middle;
+}
+.form [type]::selection, .form select::selection, .form>a::selection{
+    background-color: white;
+}
+.form [type="text"],.form *[type="password"]{
+    cursor: url("cursor/aoe2text.cur"), pointer;
+    min-width: 20em;
+    margin: 0.5em auto;
+    padding: 0.2em;
+}
+.form textarea[type="text"]{
+    min-height: 10em;
+}
+.form [type="file"]:before{
+    content: "拖文件进来";
+    display: block;
+    padding: 0 1em;
+}
+.form, .form *[type="submit"], .form>a{
+    color: white;
+    font-size: 12px;
+    text-shadow:
+    -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,
+    -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000;
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow:
+    0 -1px 0 #57391B inset,
+    1px  0 0 #57391B inset,
+    0  1px 0 #FFE2A1 inset,
+    -1px 0 0 #FFE2A1 inset;
+    text-decoration: none;
+    line-height: 1.5em;
+    transition: border 0.8s, box-shadow 0.8s, text-shadow 0.5s;
+}
+.form [type="submit"], .form>a{
+    background-color: #937150;
+}
+.form [type="submit"]:active, .form>a:active{
+    transition: border 0.2s, box-shadow 0.2s, text-shadow 0.2s;
+    text-shadow:
+    1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+    1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    border-top:    solid 1px #462006;
+    border-right:  solid 1px #462006;
+    border-bottom: solid 1px #D8DFFF;
+    border-left:   solid 1px #D8DFFF;
+    box-shadow:
+    0  1px 0 #57391B inset,
+    -1px 0 0 #57391B inset;
+}
+
+.form [type="checkbox"]+label{
+    display: inline-block;
+    line-height: 25px;
+}
+.form label:hover{
+    cursor: url("cursor/aoe2hand.cur"), pointer;
+}
+.form [type="checkbox"]{
+    display:inline-block;
+    min-width: initial;
+    width: 24px;
+    height: 25px;
+    margin: 0;
+    vertical-align:middle;
+    margin: 0 1em;
+}
+.form [type="checkbox"]:after{
+    content: "";
+    display:inline-block;
+
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    vertical-align:middle;
+    box-shadow:
+    0 -1px 0 #462006 inset,
+    1px  0 0 #462006 inset,
+    0  1px 0 #D8DFFF inset,
+    -1px 0 0 #D8DFFF inset,
+    0 -2px 0 #57391B inset,
+    2px  0 0 #57391B inset,
+    0  2px 0 #FFE2A1 inset,
+    -2px 0 0 #FFE2A1 inset;
+    background-color: #4D4D4D;
+    transition: box-shadow 2s, background 1s;
+}
+
+.form [type="checkbox"]:checked:after{
+    transition: box-shadow 0.5s, background .1s;
+    content: "";
+    box-shadow:
+    0  1px 0 #462006 inset,
+    -1px 0 0 #462006 inset,
+    0 -1px 0 #D8DFFF inset,
+    1px  0 0 #D8DFFF inset,
+    0  2px 0 #57391B inset,
+    -2px 0 0 #57391B inset,
+    0 -2px 0 #FFE2A1 inset,
+    2px  0 0 #FFE2A1 inset;
+    background-color: transparent;
+}
+.form [type="checkbox"]:hover{
+    cursor: url("cursor/aoe2hand.cur"), pointer;
+}
+.form [type="checkbox"]:checked + [type="submit"]{
+    display: none;
+}
+.form [disabled]{
+    cursor: url("cursor/aoe2normal.cur"), default;
+}
+.form .btn-large{
+    display: inline-block;
+    text-shadow: 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+                 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    border-top:    solid 1px #E4B479;
+    border-right:  solid 1px #E4B479;
+    border-bottom: solid 1px #6F4F2E;
+    border-left:   solid 1px #6F4F2E;
+    box-shadow:
+                0 -1px 0 #895932 inset,
+                1px  0 0 #895932 inset,
+                0  1px 0 #B88851 inset,
+                -1px 0 0 #B88851 inset,
+                0 -2px 0 #966638 inset,
+                2px  0 0 #966638 inset,
+                0  2px 0 #A36D3A inset,
+                -2px 0 0 #A36D3A inset;
+    padding: 0 3em;
+    color: #FF0;
+    font-family: "KaiTi";
+    font-size: 19px;
+    text-decoration: none;
+    line-height: 35px;
+    background-color: rgba(30,17,10,0.7);
+}
+.form-split{
+    display: flex;
+    flex-direction: column;
+}
+.form .checklist{
+    padding: 0;
+    text-align: left;
+}
+.form .checklist>li{
+    display: block
+}
+
+table.ls{
+     
+}
+table.ls>thead>tr>th{
+     background-color: rgba(39,52,79,0.8);;
+}
+table.ls>tbody>tr>td{
+     text-align: right;
+}
+table.ls>tbody>tr>td:nth-child(1){
+     text-align: left;
+}
+table.ls>tbody>tr:nth-child(even)>td{
+     background: rgba(1,1,1,0.1);
+}
+table.ls>tbody>tr>td>a.del{
+     text-decoration: none;
+     color: red;
+}
+table.ls>tbody>tr>td>a.avatar{
+    display: block;
+    height: 2em;
+    background-size: cover;
+    width: 100%;
+    background-position: 50% 50%;
+}
+
+.debug{
+    display: block;
+    position: fixed;
+    left: 25%;
+    width: 50%;
+    top:50%;
+    border: 5px dashed;
+    padding: 5px;
+    margin: 5px;
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 16px;
+    text-shadow: none;
+    font-weight: 100;
+    z-index: 19999;
+}
