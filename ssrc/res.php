@@ -275,12 +275,12 @@ if(isset($_GET['action'])){
     switch($_GET['action']){
     case 'dirmanage':
         CheckLogin("DIE");
-        if(!CRes::GlobalPermissionQ("ManageDir")) PageError('这是管理员才可以通过的结界！');
+        if(!CRes::GlobalPermissionQ("ManageDir")) PageError('无权管理目录');
         mkHeader($title = '管理目录'); ?>
             <div class="steps">
                 <form class="form" action="./res.php" method="post">
                     <h2>添加目录</h2>
-                    <br>* 这个页面只有管理员可以访问 *</br></br>
+                    <?php //<br>* 这个页面只有管理员可以访问 *</br></br> ?>
                     目录名称：<br /><input name="dirname" type="text"/><br />
                     上层目录：<br /><select name="pdir">
                         <option value="<?=encodeCSID(0)?>">/</option>

@@ -132,19 +132,17 @@ class CRes{
     }/* return: error|$datid */
 // ResPermission //_
     static public function GlobalPermissionQ($permission){//_
+        //$is_manager     = false;
         $is_manager     = in_array((int)$_SESSION['bbs_groupid'], array(1, 2, 3));
+        //$zyzx_medal = true;
         $zyzx_medal     = in_array(110, $_SESSION['bbs_umedals']);
         switch($permission){
             case "CreateRes":
                 return $is_manager OR $zyzx_medal;
             case "NewDir":
-                return $is_manager;
-            case "ModDir":
-                return $is_manager;
-            case "DelDir":
-                return $is_manager;
+                return $is_manager OR $zyzx_medal;
             case "ManageDir":
-                return $is_manager;
+                return $is_manager OR $zyzx_medal;
             case "Manage":
                 return $is_manager;
             case "EditDir":
@@ -390,10 +388,13 @@ class CRes{
         return mysql_insert_id();
     }/* return: DIE|$dirid  */
     static function ModDir   ($id,&$pid, &$dirname  ){//_
-        if(!self::GlobalPermissionQ("ModDir"))   PageError('无权修改目录');
+
+        $row = self::QRow("SELECT author_bbsid FROM resdir WHERE id=$id LIMIT 1", "查找目录");
+        if(!self::ResDirPermissionQ("Edit", $row))   PageError('无权修改目录');
+
         $pid = IInt(decodeCSID($pid));
         if($pid != 0){
-            $row = self::QRow("SELECT id FROM resdir WHERE id=$pid LIMIT 1", "查找目录");
+            $row = self::QRow("SELECT id FROM resdir WHERE id=$pid LIMIT 1", "查找父目录");
             if($row === false) PageError('父目录不存在'.encodeCSID($pid));
         }
         $query  = "UPDATE resdir SET t_update=UNIX_TIMESTAMP(CURRENT_TIMESTAMP)";
@@ -406,7 +407,10 @@ class CRes{
     }/* return: DIE|null */
     static function DelDir   (&$dir                 ){//_
         $id     = decodeCSID($dir);
-        if(!self::GlobalPermissionQ("DelDir"))   PageError('无权删除目录');
+
+
+        $row = self::QRow("SELECT author_bbsid FROM resdir WHERE id=$id LIMIT 1", "查找目录");
+        if(!self::ResDirPermissionQ("Delete", $row))   PageError('无权删除目录');
         $query  = "DELETE FROM resdir WHERE id=$id";
         self::Q($query, '删除目录');
         if(!mysql_affected_rows())  PageError('你不能修改这个目录');

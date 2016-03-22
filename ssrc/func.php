@@ -129,6 +129,7 @@
             <ul class="nav">
                 <li><a class="btn-mini" href="./">资源中心</a></li>
                 <li><a class="btn-mini" href="http://www.hawkaoc.net">论坛首页</a></li>
+                <li><a class="btn-mini" href="./login.php">登录论坛</a></li>
                 <li><a class="btn-mini" href="./res.php?action=dirmanage">管理目录</a></li>
             </ul>
         </div>
