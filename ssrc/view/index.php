@@ -185,15 +185,15 @@ while($row = mysql_fetch_array($result)){
 <?php   } ?>
           </ul><div class="side">
             <ul class="info">
-              <li><a id="install" href="<?=$url_install?>" target="_BLANK">安装<br /><?= htmlspecialchars($txt_size) ?></a></li>
+              <li><a id="install" title="点击安装" href="<?=$url_install?>" target="_BLANK">安装<br /><?= htmlspecialchars($txt_size) ?></a></li>
 <?php if(isset($txt_come_from[0])){ ?>
-              <li><a id="source" href="<?=$url_come_from?>"><?= htmlspecialchars($txt_come_from) ?></a></li>
+              <li><a id="source" title="来源" href="<?=$url_come_from?>"><?= htmlspecialchars($txt_come_from) ?></a></li>
 <?php } ?>
-              <li><a id="author" href=""><?= htmlspecialchars($txt_author_name) ?>出品</a></li>
-              <li><a id="update"><?= htmlspecialchars($txt_update_time) ?>更新</a></li>
-              <li><a id="downloads"><?= "安装数 ".htmlspecialchars($txt_downlaods) ?></a></li>
+              <li><a id="author" title="作者" href=""><?= htmlspecialchars($txt_author_name) ?></a></li>
+              <li><a id="update" title="更新时间"><?= htmlspecialchars($txt_update_time) ?>更新</a></li>
+              <li><a id="downloads" title="安装数"><?= "安装数 ".htmlspecialchars($txt_downlaods) ?></a></li>
             </ul><ul class="index-img">
-              <li><a href="#rescontent" class="content">描述</a></li>
+              <li><a title="描述" href="#rescontent" class="content">描述</a></li>
 <?php   foreach ($ls_img_rnd as $k => $rnd) { ?>
               <li><a href="#<?=$rnd?>" style="background-image: url(&quot;<?=htmlspecialchars($ls_img_url[$k])?>&quot;)"></a></li>
 <?php   } ?>

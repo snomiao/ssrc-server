@@ -90,7 +90,6 @@
     text-indent: 2em;
     overflow: auto;
     text-align: center;
-    writing-mode: tb-rl;
 }
 .resview>.content>ul.main>li.content{
     text-align: left;

@@ -482,6 +482,7 @@ if(isset($_GET['res'])){
                         <li><input type="checkbox" id="cb4" name="4"<?=$b_gamebase_array['4']?' checked':''?>/><label for="cb4">蓝帽子 1.4</label></li>
                         <li><input type="checkbox" id="cbf" name="f"<?=$b_gamebase_array['f']?' checked':''?>/><label for="cbf">绿帽子 遗忘的帝国</label></li>
                         <li><input type="checkbox" id="cbm" name="m"<?=$b_gamebase_array['m']?' checked':''?>/><label for="cbm">带mod的帝国</label></li>
+                        <li><input type="checkbox" id="cb5" name="5"<?=$b_gamebase_array['5']?' checked':''?>/><label for="cb5">蓝帽子 1.5</label></li>
                     </ul>
                     <input type="hidden" name="action" value="b_gamebase" />
                     <input type="hidden" name="res" value="<?=$res?>" />
