@@ -54,4 +54,4 @@ Temporary Items
 *.json
 password.php
 google*.html
-.picasa.ini
+*.sublime-*
