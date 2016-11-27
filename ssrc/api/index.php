@@ -23,13 +23,13 @@ function jsonLsRes(){
                 'cd' => (int)$row['count_download'],
                 'tc' => (int)$row['t_create'],
                 'ai' => (int)$row['author_bbsid'],
-                'an' => $row['author_name'],
-                'n'  => $row['name'],
-                'co' => $row['content'],
+                'an' =>      $row['author_name'],
+                'n'  =>      $row['name'],
+                'co' =>      $row['content'],
                 'gb' => (int)$row['b_gamebase'],
-                'ur' => $row['fromurl'],
-                'ty' => $row['e_type'],
-                'st' => $status
+                'ur' =>      $row['fromurl'],
+                'ty' =>      $row['e_type'],
+                'st' =>      $status
             );
         }
     }

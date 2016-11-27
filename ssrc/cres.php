@@ -13,6 +13,8 @@ define('UPDIR', dirname(__FILE__).'/rcdat');
 define('STATUS_EDITING'  , 0);
 define('STATUS_CHECKING' , 1);
 define('STATUS_PUBLISHED', 2);
+define('STATUS_DELETED'  , 3);
+
 if(!mysql_connect(DB_HOST,DB_USERNAME,DB_PASSWORD)) PageError('资源中心服务器忙，请稍候再试！');
 mysql_select_db(DB_NAME); mysql_set_charset(DB_CHARSET);
 
@@ -266,12 +268,12 @@ class CRes{
     }
     public         function SetGamebase ($b_gamebase){//_
         if(!$this->PermissionQ("Edit")) PageError('无权编辑该资源', encodeCSID($this->id));
-        $ex = ",status=0,b_gamebase=$b_gamebase";
+        $ex = ",status=".STATUS_EDITING.",b_gamebase=$b_gamebase";
         return $this->Update($ex);
     }
     public         function Edit        (&$name, &$summary, &$content, &$e_type){//_
         if(!$this->PermissionQ("Edit")) PageError('无权编辑该资源', encodeCSID($this->id));
-        $ex = ',status=0';
+        $ex = ',status='.STATUS_EDITING;
         $ex.= ',name='   .IStr($name   );
         $ex.= ',summary='.IStr($summary);
         $ex.= ',content='.IStr($content);
@@ -286,8 +288,8 @@ class CRes{
             $id_file    = (int)$row['id'];
             self::DelFile($id_file);
         }
-        
-        return self::Q("DELETE FROM res WHERE id={$this->id}", '删除资源', $this->id);
+        return self::Q('UPDATE res SET status='.STATUS_DELETED." WHERE id={$this->id}", '删除资源', $this->id);
+        //return self::Q("DELETE FROM res WHERE id={$this->id}", '删除资源', $this->id);
     }/* return: DIE|$result */
     public         function Check       (&$author_name, &$fromurl=''){//_
         if(!$this->PermissionQ("Edit")) PageError('无权编辑该资源', encodeCSID($this->id));
@@ -323,7 +325,7 @@ class CRes{
         $query = "INSERT INTO resfile SET t_update=UNIX_TIMESTAMP(CURRENT_TIMESTAMP),resid={$this->id}";
         $query.= ",dirid=$dirid,filename=$filename,size=$size,datid=$datid";
         if(!self::QNoErr($query))                          return '上传没有完成，请再试试吧，'.$f['name'];
-        $this->Update(",status=0,t_fileup=UNIX_TIMESTAMP(CURRENT_TIMESTAMP),totalsize=(SELECT SUM(size) size FROM (SELECT resdat.size FROM resdat JOIN resfile ON resid={$this->id} WHERE resdat.id=resfile.datid) lssize)");
+        $this->Update(",status=".STATUS_EDITING.",t_fileup=UNIX_TIMESTAMP(CURRENT_TIMESTAMP),totalsize=(SELECT SUM(size) size FROM (SELECT resdat.size FROM resdat JOIN resfile ON resid={$this->id} WHERE resdat.id=resfile.datid) lssize)");
                                                            return '上传成功，'.($creplace == 0 ? '' : "覆盖了 $creplace 个文件，").$f['name'];
     }/* return: DIE|error */
     public         function BindImg  ($f        ){//_
@@ -351,8 +353,9 @@ class CRes{
         $self  = new self($resid)  ;
         if(!$self->PermissionQ("Edit")) PageError('无权编辑该资源', encodeCSID($resid));
         // 删除
-        self::Q("DELETE FROM resfile WHERE id=$id", "删除文件".$id);
-        $self->Update(",status=0,t_fileup=UNIX_TIMESTAMP(CURRENT_TIMESTAMP),totalsize=(SELECT SUM(size) size FROM (SELECT resdat.size FROM resdat JOIN resfile ON resid={$self->id} WHERE resdat.id=resfile.datid) lssize)");
+        self::Q("UPDATE resfile SET deleted = 1 WHERE id=$id", "删除文件".$id);
+        //self::Q("DELETE FROM resfile WHERE id=$id", "删除文件".$id);
+        $self->Update(",status=".STATUS_EDITING.",t_fileup=UNIX_TIMESTAMP(CURRENT_TIMESTAMP),totalsize=(SELECT SUM(size) size FROM (SELECT resdat.size FROM resdat JOIN resfile ON resid={$self->id} WHERE resdat.id=resfile.datid) lssize)");
         if(!is_int($errinfo = self::DelDat($datid))) return $errinfo;
                                                      return '删除成功，'.$row['filename'];
     }/* return: DIE|error */
