@@ -3,27 +3,61 @@
 require_once('../cres.php');
 
 function jsonLsRes(){
-    $result = CRes::Q('SELECT id,t_fileup,t_update,votereview,votecomment,count_download,status FROM res', '检索资源');
+    // PS: 这里只需要简单加个(int)就可以防注入了
+    $timestamp = (int)$_REQUEST['t'];
+    $result = CRes::Q("SELECT id,t_fileup,t_update,votereview,votecomment,count_download,status,t_create,author_bbsid,author_name,name,content,b_gamebase,fromurl,e_type FROM res WHERE t_update>=$timestamp", '检索资源');
 
     $json_lsres = array();
     
     while($row = mysql_fetch_array($result)){
-        $status         = (int)$row['status'];
-        $cansee         = CRes::ResPermissionQ("See", $row);
+        $status = (int)$row['status'];
+        $cansee = CRes::ResPermissionQ("See", $row);
 
         if($cansee){
             $json_lsres[] = array(
-                'id'            => (int)$row['id'],
-                't_fileup'       => (int)$row['t_fileup'],
-                't_update'       => (int)$row['t_update'],
-                'votereview'     => (int)$row['votereview'],
-                'votecomment'    => (int)$row['votecomment'],
-                'count_download' => (int)$row['count_download']
-                );
+                'id' => (int)$row['id'],
+                'tf' => (int)$row['t_fileup'],
+                'tu' => (int)$row['t_update'],
+                'vr' => (int)$row['votereview'],
+                'vc' => (int)$row['votecomment'],
+                'cd' => (int)$row['count_download'],
+                'tc' => (int)$row['t_create'],
+                'ai' => (int)$row['author_bbsid'],
+                'an' => $row['author_name'],
+                'n'  => $row['name'],
+                'co' => $row['content'],
+                'gb' => (int)$row['b_gamebase'],
+                'ur' => $row['fromurl'],
+                'ty' => $row['e_type'],
+                'st' => $status
+            );
         }
     }
 
-    return json_encode($json_lsres);
+    return json_encode(array('t'=>time(),'r'=>$json_lsres),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+}
+
+function jsonLsFile(){
+    // 这里加了个decodeCSID()
+    $resid     = decodeCSID($_GET['resid']);
+    // 这里加了个(int)
+    $timestamp = (int)$_GET['t'];
+
+    $result = CRes::Q("SELECT f.id AS id,f.t_update AS t_update,PathFile(f.id) AS path,HEX(d.sha1) AS sha1,f.size AS size,f.deleted AS deleted FROM resfile AS f LEFT JOIN resdat AS d ON f.datid=d.id WHERE f.resid=$resid AND f.t_update>=$timestamp", '检索资源文件');
+
+    $json_lsfile = array();
+    while($row = mysql_fetch_array($result)){
+        $json_lsfile[] = array(
+            'id' => (int)$row['id'],
+            't'  => (int)$row['t_update'],
+            'p'  =>$row['path'],
+            'h'  =>$row['sha1'],
+            's'  =>(int)$row['size'],
+            'd'  =>(int)$row['deleted']
+        );
+    }
+
+    return json_encode($json_lsfile,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 }
 
 function _jsonResInfo($where){
@@ -71,7 +105,9 @@ switch ($query) {
 case 'lsres':
     echo jsonLsRes();
     break;
-    
+case 'lsfile':
+    echo jsonLsFile();
+    break;
 case 'resinfo':
     echo jsonResInfo();
     break;
