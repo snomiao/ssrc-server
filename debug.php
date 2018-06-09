@@ -1,4 +1,4 @@
 <?php
-require("func.php");
 
-var_dump($_SESSION["bbs_umedals"]);
+ini_set('display_errors', true);
+error_reporting(E_ALL);

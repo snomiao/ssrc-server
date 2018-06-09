@@ -43,7 +43,11 @@ Temporary Items
 
 user-config.json
 sftp-config.json
+# 密码
 user-config/
-password.php
+
+# google统计
 google*.html
+
+# sublime项目
 *.sublime-*

@@ -1,5 +1,7 @@
 <?php //ssrc/res.php
-set_time_limit(600); //For Uploading File
+
+//require_once('debug.php'); // 开启调试
+set_time_limit(600); //For Uploading File, 10分钟
 require_once('cres.php');
 /**
 
@@ -267,10 +269,10 @@ $bbsid = IInt($_SESSION['bbs_uid']);
 if (CRes::GlobalPermissionQ("Manage")) {
     define('SQL_EACHDIR',       "SELECT id, PathDir(id) dirpath FROM resdir ORDER BY CONVERT(dirpath USING gbk)");
     //define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update FROM resdir ORDER BY dirpath");
-    define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update, (SELECT COUNT(*) FROM resdir tmp WHERE pid=resdir.id) csdir, (SELECT COUNT(*) FROM resfile WHERE dirid=resdir.id) cfile  FROM resdir");
+    define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update, (SELECT COUNT(*) FROM resdir tmp WHERE pid=resdir.id) csdir, (SELECT COUNT(*) FROM resfile WHERE dirid=resdir.id) cfile FROM resdir");
 }else{
     define('SQL_EACHDIR',       "SELECT id, PathDir(id) dirpath FROM resdir WHERE $bbsid=author_bbsid OR 0=author_bbsid ORDER BY CONVERT(dirpath USING gbk)");
-    define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update FROM resdir WHERE $bbsid=author_bbsid OR 0=author_bbsid ORDER BY CONVERT(dirpath USING gbk)");
+    define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update, (SELECT COUNT(*) FROM resdir tmp WHERE pid=resdir.id) csdir, (SELECT COUNT(*) FROM resfile WHERE dirid=resdir.id) cfile FROM resdir WHERE $bbsid=author_bbsid OR 0=author_bbsid ORDER BY CONVERT(dirpath USING gbk)");
 }
 if(isset($_GET['action'])){
     switch($_GET['action']){
@@ -311,6 +313,7 @@ if(isset($_GET['action'])){
             $uid      = (int)$rowdir['author_bbsid'];
             $t_update = (int)$rowdir['t_update'];
             $time     = $t_update == 0 ? "系统自带目录" : date("Y年M月d日 h:i:s",$t_update);
+
             $csdir    = (int)$rowdir['csdir'];
             $cfile    = (int)$rowdir['cfile'];
             $delurl   = "./res.php?action=deldir&dir=$dir";?>
@@ -338,6 +341,7 @@ if(isset($_GET['action'])){
         if(!CRes::ResDirPermissionQ("Delete", $row)) PageError('你不能删除这个目录。');
         $dirpath = $row['dirpath'];
         mkHeader('删除目录'); ?>
+                <!-- TODO: 显示目录下子文件数 -->
                 <form class="form" action="./res.php" method="post">
                     <h1>确认删除目录？[<?=htmlspecialchars(mb_strimwidth($dir,0,45,'...','utf-8'))?>]</h1>
                     目录名称：<br /><input name="dirname" type="text" disabled value="<?=htmlspecialchars($dirpath)?>"/><br />
