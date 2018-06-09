@@ -20,15 +20,11 @@
 1. 资源管理模块
 2. 后台管理界面
 
-### 资源管理模块
 
-### 后台管理界面
-API与帝国时代管家对接，负责资源文件的统筹管理。
-
-资源中心访问地址：
-[http://121.42.152.168/ssrc/](http://121.42.152.168/ssrc/)
 
 ## 参见：
 
-[帝国时代管家开源](https://github.com/sdjnyty/AocManagerTool)
-[翔鹰帝国资源中心开源](https://github.com/snomiao/ssrc-server)
+
+[资源中心：http://121.42.152.168/ssrc/](http://121.42.152.168/ssrc/)
+[帝国时代管家开源：https://github.com/sdjnyty/AocManagerTool](https://github.com/sdjnyty/AocManagerTool)
+[翔鹰帝国资源中心开源（本项目）：https://github.com/snomiao/ssrc-server](https://github.com/snomiao/ssrc-server)
