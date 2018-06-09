@@ -123,6 +123,7 @@ while($row = mysql_fetch_array($result)){
 <!DOCTYPE html>
 <html lang="cn">
   <head>
+    <base href="/ssrc/">
     <meta name="description" content="帝国时代2资源中心是一个帝国时代2的资源库，其中包括但不限于录像、战役、场景、MOD、等资源，并拥有自主研发的一站式安装工具。">
     <meta name="keywords" content="age,empires,ageofempires2,AOC,AOK,下载,世紀帝國,帝国,帝国2,帝国时代,帝国时代2,帝国时代2,帝国时代2下载,帝国时代2中文版下载,帝国时代2修改器,帝国时代2攻略,帝国时代2汉化,帝国时代2秘籍,帝国时代2配置,帝国时代2高清版,帝国时代2资源,帝國時代,帝王世纪,征服者,资源,资源中心,遗忘的帝国,遗忘帝国,遗朝">
     <meta name="author" content="Snowstar">
@@ -139,7 +140,7 @@ while($row = mysql_fetch_array($result)){
         z-index: 10;
       }
     </style>
-    <link rel="stylesheet" type="text/css" href="../rc.css">
+    <link rel="stylesheet" type="text/css" href="css/rc.css">
     <link rel="stylesheet" type="text/css" href="./view.css">
     <!-- <script type="text/javascript" src="http://cssrefresh.frebsite.nl/js/cssrefresh.js"></script> -->
     <title><?=htmlspecialchars($txt_title)?> - 帝国资源中心</title>

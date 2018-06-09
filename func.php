@@ -131,7 +131,7 @@
                 z-index: 10;
             }
         </style>
-        <link rel="stylesheet" type="text/css" href="rc.css">
+        <link rel="stylesheet" type="text/css" href="css/rc.css">
         <title><?=$title?> - <?=$suffix?></title>
     </head>
     <body>
