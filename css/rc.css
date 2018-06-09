@@ -14,7 +14,7 @@ body::before{
     height: 0;
 }
 html{
-    cursor: url("cursor/aoe2normal.cur"), default;
+    cursor: url("../cursor/aoe2normal.cur"), default;
     background: lightslategray;
 }/*背景, 指针*/
 body{
@@ -43,7 +43,7 @@ body>#header, body>#footer, .btn-mini{
     transition: border 0.5s, box-shadow 0.5s, text-shadow 0.5s;
 }
 .btn-mini{
-    cursor: url("cursor/aoe2hand.cur"), pointer;
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
     background-color: #937150;
 } /*小按钮指针, 背景*/
 .btn-mini:active{
@@ -61,7 +61,7 @@ body>#header, body>#footer{
 }
 body>#footer{
     padding: 2em 0;
-    background: url("./image/hawk.png") 50% 50% no-repeat, url('//www.hawkaoe.net/bbs/images/aoc/kabg.gif'), #E9BB7B;
+    background: url("../image/hawk.png") 50% 50% no-repeat, url('//www.hawkaoe.net/bbs/images/aoc/kabg.gif'), #E9BB7B;
     background-size: contain;
 }
 body>#header .nav{
@@ -114,7 +114,7 @@ h1, h2, h3, h4, h5, h6{
     display: none;
 }
 #known + label.msg{
-    cursor: url("cursor/aoe2normal.cur"), default;
+    cursor: url("../cursor/aoe2normal.cur"), default;
     display: block;
     margin: 1em;
     text-align: center;
@@ -141,7 +141,7 @@ h1, h2, h3, h4, h5, h6{
     transition: height 1s, cursor 1s, line-height 1s;
 }
 #known:checked + label.msg{
-    cursor: url("cursor/aoe2normal.cur"), default;
+    cursor: url("../cursor/aoe2normal.cur"), default;
     height: 2em;
     line-height: 2em;
 }
@@ -241,7 +241,7 @@ h1, h2, h3, h4, h5, h6{
     transition: left 0.1s;
 }
 .lsres .res .ctrl .btn[href]{
-    cursor: url("cursor/aoe2hand.cur"), pointer;
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
 }
 .lsres .res .ctrl .btn[href]:hover{
     left: -1em;
@@ -320,7 +320,7 @@ h1, h2, h3, h4, h5, h6{
     border-top:    solid 1px #5F5D10;
     box-shadow: 0 1px 0 #64647F inset,-1px 0 0 #64647F inset,0 -1px 0 #9FAEA1 inset,1px 0 0 #9FAEA1 inset;
     color: #FFF;
-    cursor: url("cursor/aoe2hand.cur"), pointer;
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
     display: inline-block;
     font-family: "SimSun";
     font-family: "SimSun";
@@ -337,7 +337,7 @@ h1, h2, h3, h4, h5, h6{
     background-color: white;
 }
 .form [type="text"],.form *[type="password"]{
-    cursor: url("cursor/aoe2text.cur"), pointer;
+    cursor: url("../cursor/aoe2text.cur"), pointer;
     min-width: 20em;
     margin: 0.5em auto;
     padding: 0.2em;
@@ -403,7 +403,7 @@ h1, h2, h3, h4, h5, h6{
     line-height: 25px;
 }
 .form label:hover{
-    cursor: url("cursor/aoe2hand.cur"), pointer;
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
 }
 .form [type="checkbox"]{
     display:inline-block;
@@ -449,13 +449,13 @@ h1, h2, h3, h4, h5, h6{
     background-color: transparent;
 }
 .form [type="checkbox"]:hover{
-    cursor: url("cursor/aoe2hand.cur"), pointer;
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
 }
 .form [type="checkbox"]:checked + [type="submit"]{
     display: none;
 }
 .form [disabled]{
-    cursor: url("cursor/aoe2normal.cur"), default;
+    cursor: url("../cursor/aoe2normal.cur"), default;
 }
 .form .btn-large{
     display: inline-block;
