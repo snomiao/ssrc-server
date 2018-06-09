@@ -35,7 +35,7 @@ function GoReferer(){
     if(isset($_REQUEST['HTTP_REFERER'])) $referer = $_REQUEST['HTTP_REFERER'];
 
     if(isset($referer) && isset($referer{1}) && !endWith($referer, $_SERVER['PHP_SELF'])){
-        header("Referer: http://www.hawkaoc.net");
+        header("Referer: http://www.hawkaoe.net");
         header("Location:".$referer);
         exit();
     }

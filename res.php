@@ -108,7 +108,7 @@ if(isset($_POST['res'])){
         header('Location:./');
         exit();
     case 'edit':
-        $cRes->Edit($_POST['resname'],$_POST['summary'],$_POST['rescontent'],$_POST['e_res_type']);
+        $cRes->Edit($_POST['resname'], $_POST['summary'],$_POST['rescontent'],$_POST['e_res_type']);
         header('Location:./res.php?action=edit&res='.$res);
         exit();
     case 'check':
@@ -139,6 +139,7 @@ if(isset($_POST['res'])){
         header('Location:./res.php?action=edit&res='.$res);
         exit();
     case 'upload':
+        ini_set('max_file_uploads','200');
         $msg = '';
         //得到文件列表
         if(isset($_FILES['resfile']) && isset($_FILES['resfile']['error'])
@@ -264,12 +265,12 @@ if(isset($_POST['res'])){
 
 $bbsid = IInt($_SESSION['bbs_uid']);
 if (CRes::GlobalPermissionQ("Manage")) {
-    define('SQL_EACHDIR',       "SELECT id, PathDir(id) dirpath FROM resdir ORDER BY dirpath");
+    define('SQL_EACHDIR',       "SELECT id, PathDir(id) dirpath FROM resdir ORDER BY CONVERT(dirpath USING gbk)");
     //define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update FROM resdir ORDER BY dirpath");
     define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update, (SELECT COUNT(*) FROM resdir tmp WHERE pid=resdir.id) csdir, (SELECT COUNT(*) FROM resfile WHERE dirid=resdir.id) cfile  FROM resdir");
 }else{
-    define('SQL_EACHDIR',       "SELECT id, PathDir(id) dirpath FROM resdir WHERE $bbsid=author_bbsid OR 0=author_bbsid ORDER BY dirpath");
-    define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update FROM resdir WHERE $bbsid=author_bbsid OR 0=author_bbsid ORDER BY dirpath");
+    define('SQL_EACHDIR',       "SELECT id, PathDir(id) dirpath FROM resdir WHERE $bbsid=author_bbsid OR 0=author_bbsid ORDER BY CONVERT(dirpath USING gbk)");
+    define('SQL_EACHDIRDETEAL', "SELECT id, PathDir(id) dirpath, author_bbsid, t_update FROM resdir WHERE $bbsid=author_bbsid OR 0=author_bbsid ORDER BY CONVERT(dirpath USING gbk)");
 }
 if(isset($_GET['action'])){
     switch($_GET['action']){
@@ -317,7 +318,7 @@ if(isset($_GET['action'])){
                                 <td><?=htmlspecialchars($dirpath)?></td>
                                 <td><?=$time?></td>
                                 <td>
-                                    <a href="<?=htmlspecialchars("http://www.hawkaoc.net/bbs/space-uid-$uid.html")?>" class="avatar" target="_BLANK" <?=$uid==0?'':'style="background-image: url('.htmlspecialchars('\''."http://www.hawkaoc.net/bbs/uc_server/avatar.php?size=large&uid=$uid".'\'').')"'?>>
+                                    <a href="<?=htmlspecialchars("//www.hawkaoe.net/bbs/space-uid-$uid.html")?>" class="avatar" target="_BLANK" <?=$uid==0?'':'style="background-image: url('.htmlspecialchars('\''."//www.hawkaoe.net/bbs/uc_server/avatar.php?size=large&uid=$uid".'\'').')"'?>>
                                 </td>
                                 <td><?=$csdir?></td>
                                 <td><?=$cfile?></td>
@@ -439,6 +440,7 @@ if(isset($_GET['res'])){
                         <option value="mp3" <?=      'mp3'      ==$row['e_type']?'selected="selected"':''?>>音乐</option>
                         <option value="tool" <?=     'tool'     ==$row['e_type']?'selected="selected"':''?>>工具</option>
                         <option value="undefined" <?='undefined'==$row['e_type']?'selected="selected"':''?>>未知资源</option>
+                        <option value="lang" <?=     'lang'     ==$row['e_type']?'selected="selected"':''?>>语言</option>
                     </select><br />
                     <input type="hidden" name="res" value="<?=$res?>" />
                     <input type="hidden" name="action" value="edit" />
@@ -465,7 +467,7 @@ if(isset($_GET['res'])){
                     
                     $dir            = encodeCSIDInsider($rowdir['id']);
                     $dirpath        = $rowdir['dirpath']; ?>
-                            <option value="<?=$dir?>"><?=htmlspecialchars($dirpath)?></option>
+                            <option value="<?=$dir?>"<?=$_POST['dir']==$dir?' selected="selected"':''?>><?=htmlspecialchars($dirpath)?></option>
 <?php           } ?>
                         </select><br />
                         <input type="hidden" name="res" value="<?=$res?>" />
@@ -483,6 +485,7 @@ if(isset($_GET['res'])){
                         <li><input type="checkbox" id="cbf" name="f"<?=$b_gamebase_array['f']?' checked':''?>/><label for="cbf">绿帽子 遗忘的帝国</label></li>
                         <li><input type="checkbox" id="cbm" name="m"<?=$b_gamebase_array['m']?' checked':''?>/><label for="cbm">带mod的帝国</label></li>
                         <li><input type="checkbox" id="cb5" name="5"<?=$b_gamebase_array['5']?' checked':''?>/><label for="cb5">蓝帽子 1.5</label></li>
+                        <li><input type="checkbox" id="cbw" name="w"<?=$b_gamebase_array['w']?' checked':''?>/><label for="cbw">WololoKingdoms</label></li>
                     </ul>
                     <input type="hidden" name="action" value="b_gamebase" />
                     <input type="hidden" name="res" value="<?=$res?>" />
@@ -503,7 +506,7 @@ if(isset($_GET['res'])){
             <h2>资源文件列表</h2>
             <div class="lsres">
 <?php
-        if($result=mysql_query("SELECT f.id, PathFile(f.id) path, d.size FROM resfile f INNER JOIN resdat d ON f.datid=d.id AND f.resid=$resid ORDER BY path") )
+        if($result=mysql_query("SELECT f.id, PathFile(f.id) path, d.size FROM resfile f INNER JOIN resdat d ON f.datid=d.id AND f.resid=$resid AND f.deleted=0 ORDER BY CONVERT(path USING gbk)") )
         while($row = mysql_fetch_array($result)){
             $csid    = encodeCSID($row['id']);
             $path    = $row['path'];

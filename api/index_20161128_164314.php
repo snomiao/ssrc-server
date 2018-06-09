@@ -18,6 +18,7 @@ function jsonLsRes(){
                 'id' => (int)$row['id'],
                 'tf' => (int)$row['t_fileup'],
                 'tu' => (int)$row['t_update'],
+                'ts' => (int)$row['totalsize'],
                 'vr' => (int)$row['votereview'],
                 'vc' => (int)$row['votecomment'],
                 'cd' => (int)$row['count_download'],
@@ -44,7 +45,7 @@ function jsonLsFile(){
     $timestamp = (int)$_GET['t'];
 
     $result = CRes::Q("SELECT f.id AS id,f.t_update AS t_update,PathFile(f.id) AS path,HEX(d.sha1) AS sha1,f.size AS size,f.deleted AS deleted FROM resfile AS f LEFT JOIN resdat AS d ON f.datid=d.id WHERE f.resid=$resid AND f.t_update>=$timestamp", '检索资源文件');
-
+    $t_fileup = (int) mysql_fetch_array( CRes::Q("SELECT t_fileup FROM res WHERE id=$resid"))['t_fileup'];
     $json_lsfile = array();
     while($row = mysql_fetch_array($result)){
         $json_lsfile[] = array(
@@ -57,7 +58,7 @@ function jsonLsFile(){
         );
     }
 
-    return json_encode($json_lsfile,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+    return json_encode(array('t'=>$t_fileup,'r'=>$json_lsfile),JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 }
 
 function _jsonResInfo($where){

@@ -1,24 +1,6 @@
 <?php
 error_reporting(E_ALL);
-function GetE_Type($e_type){
-  $ls_e_type = array(
-    'cpx'       => '战役',
-    'scx'       => '场景',
-    'mgx'       => '录像',
-    'gax'       => '存档',
-    'rms'       => '随机地图',
-    'drs'       => 'MOD.drs',
-    'mod'       => 'MOD',
-    'hki'       => '键位表',
-    'tau'       => '嘲讽',
-    'ai'        => 'AI',
-    'avi'       => '过场动画',
-    'mp3'       => '音乐',
-    'tool'      => '工具',
-    'undefined' => '未知',
-  );
-  return isset($ls_e_type[$e_type]) ? $ls_e_type[$e_type] : $ls_e_type['undefined'];
-}
+
 ////////////////////
 function startsWith($haystack, $needle) {
     return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
@@ -28,9 +10,10 @@ function endsWith($haystack, $needle) {
 }
 function GetComeFrom(&$url){
     if(!isset($url[0])) return '';
-    if( startsWith($url, 'http://amt.hawkaoc.net/'            ) ) return "帝国资源中心";
-    if( startsWith($url, 'http://www.hawkaoc.net/'            ) ) return "翔鹰帝国论坛";
-    if( startsWith($url, 'http://hawkaoc.net/'                ) ) return "翔鹰帝国论坛";
+    if( startsWith($url, 'http://amt.hawkaoe.net/'            ) ) return "帝国资源中心";
+    if( startsWith($url, 'http://www.hawkaoc.net/'            ) ) return "旧翔鹰帝国论坛";
+    if( startsWith($url, 'http://www.hawkaoe.net/'            ) ) return "翔鹰帝国论坛";
+    if( startsWith($url, 'http://hawkaoe.net/'                ) ) return "翔鹰帝国论坛";
     if( startsWith($url, 'http://aoczone.net/'                ) ) return "AoCZone\nVoobly官方论坛";
     if( startsWith($url, 'http://aoe.heavengames.com/'        ) ) return "AoE Heaven\n帝国时代天堂";
     if( startsWith($url, 'http://aoe3.heavengames.com/'       ) ) return "AoE3 Heaven\n帝国时代3天堂";
@@ -73,7 +56,7 @@ $txt_update_time  = date('Y年m月d日', (int)$row['t_fileup'] ? (int)$row['t_fi
 $url_install      = "安装\n$txt_size";
 $url_come_from    = $row['fromurl'];
 $url_install      = "./../res.php?action=download&res=$res";
-$url_install      = "amt://?a=dl&res=$res&cutf=%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9C%8B%E5%88%B0%E4%BA%86%E8%BF%99%E5%8F%A5%E8%AF%9D%EF%BC%8C%E8%AF%B4%E6%98%8E%E4%BD%A0%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85%E5%B8%9D%E5%9B%BD%E6%97%B6%E4%BB%A3%E7%AE%A1%E5%AE%B6%EF%BC%8C%E8%AF%B7%E5%89%8D%E5%BE%80www.hawkaoc.net%E4%B8%8B%E8%BD%BD";
+$url_install      = "amt://?a=dl&res=$res&cutf=%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9C%8B%E5%88%B0%E4%BA%86%E8%BF%99%E5%8F%A5%E8%AF%9D%EF%BC%8C%E8%AF%B4%E6%98%8E%E4%BD%A0%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85%E5%B8%9D%E5%9B%BD%E6%97%B6%E4%BB%A3%E7%AE%A1%E5%AE%B6%EF%BC%8C%E8%AF%B7%E5%89%8D%E5%BE%80www.hawkaoe.net%E4%B8%8B%E8%BD%BD";
 //imagelist
 $ls_img_url = array();
 $ls_img_txt = array();
@@ -166,7 +149,7 @@ while($row = mysql_fetch_array($result)){
         <li>
           <a class="btn-mini" href="./../">资源中心</a>
         </li><li>
-          <a class="btn-mini" href="http://www.hawkaoc.net">论坛首页</a>
+          <a class="btn-mini" href="//www.hawkaoe.net">论坛首页</a>
         </li><li>
           <a class="btn-mini" href="./../res.php?action=dirmanage">管理目录</a>
         </li>
@@ -175,7 +158,7 @@ while($row = mysql_fetch_array($result)){
       <iframe name="ssrcAsync" style="display: none"></iframe>
       <div class="resview">
         <div class="header">
-          <span class="e_type"><?=htmlspecialchars($txt_e_type)?></span><h1 class="title"><?=htmlspecialchars($txt_title)?></h1>
+          <h1 class="title"><span class="e_type"><?=htmlspecialchars($txt_e_type)?></span><?=htmlspecialchars($txt_title)?></h1>
         </div>
         <div class="content">
           <ul class="main">
@@ -187,11 +170,13 @@ while($row = mysql_fetch_array($result)){
             <ul class="info">
               <li><a id="install" title="点击安装" href="<?=$url_install?>" target="_BLANK">安装<br /><?= htmlspecialchars($txt_size) ?></a></li>
 <?php if(isset($txt_come_from[0])){ ?>
-              <li><a id="source" title="来源" href="<?=$url_come_from?>"><?= htmlspecialchars($txt_come_from) ?></a></li>
-<?php } ?>
-              <li><a id="author" title="作者" href=""><?= htmlspecialchars($txt_author_name) ?></a></li>
+              <li><a id="source" title="点击跳转到来源" href="<?=$url_come_from?>">来自<?= htmlspecialchars($txt_come_from) ?></a></li>
+<?php } 
+        /* <li><a id="author" title="点击查看作者" href=""><?= htmlspecialchars($txt_author_name) ?></a></li> */
+?>
+              <li><a id="author" title="作者"><?= htmlspecialchars($txt_author_name) ?>出品</a></li>
               <li><a id="update" title="更新时间"><?= htmlspecialchars($txt_update_time) ?>更新</a></li>
-              <li><a id="downloads" title="安装数"><?= "安装数 ".htmlspecialchars($txt_downlaods) ?></a></li>
+              <li><a id="downloads" title="安装数"><?=htmlspecialchars($txt_downlaods)?> 人安装</a></li>
             </ul><ul class="index-img">
               <li><a title="描述" href="#rescontent" class="content">描述</a></li>
 <?php   foreach ($ls_img_rnd as $k => $rnd) { ?>
