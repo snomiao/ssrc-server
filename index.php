@@ -78,7 +78,7 @@ case 'view':
             <div class="resSearch">
                 <form class="form">
                     <div>
-                        <input type="text" name="q" class="resSearchInput" value="<?= HStr($q) ?>"> <input type="submit" value="搜索">
+                        <input type="text" name="q" class="resSearchInput" placeholder="资源名 / 资源类型 / 资源简介" value="<?= HStr($q) ?>"><input type="submit" value="搜索">
                     </div>
                     <?php if( $q != $qLimited ) {?>
                         <div>
@@ -94,9 +94,9 @@ case 'view':
                 <div class="res me" style="background-image: url(&quot;http://www.hawkaoe.net/bbs/uc_server/avatar.php?size=large&amp;uid=<?=$_SESSION['bbs_uid']?>&quot;)">
                     <div class="name"><?=$_SESSION['bbs_uname']?></div>
                     <div class="ctrl">
-                        <a class="btn new" href="./res.php?action=new">创建资源</a>
-                        <a class="btn link" href="http://www.hawkaoe.net">论坛首页</a>
-                        <a class="btn del" href="./login.php?logout=">登出账号</a>
+                        <a class="btn-floating new" href="./res.php?action=new">创建资源</a>
+                        <a class="btn-floating link" href="http://www.hawkaoe.net">论坛首页</a>
+                        <a class="btn-floating del" href="./login.php?logout=">登出账号</a>
                     </div>
                     <div class="content"></div>
                 </div>
@@ -124,23 +124,23 @@ case 'view':
                     <div class="name"><span class="e_type">[<?=$txt_e_type?>]</span><?=$name?></div>
                     <div class="ctrl">
 <?php       if(!$cansee){ ?>
-                        <a class="btn del">!<?=$isauthor?>如果你看到这句话请截图给雪星(@Snowstar)////////</a>
+                        <a class="btn-floating del">!<?=$isauthor?>如果你看到这句话请截图给雪星(@Snowstar)////////</a>
 <?php       } ?>
-                        <a class="btn info"><?=htmlspecialchars($author_name)?>出品</a>
+                        <a class="btn-floating info"><?=htmlspecialchars($author_name)?>出品</a>
 <?php       if(STATUS_EDITING == $status){ ?>
-                        <a class="btn disabled">发布等待</a>
+                        <a class="btn-floating disabled">发布等待</a>
 <?php       }else if(STATUS_CHECKING == $status && $canmanage){ ?>
-                        <a class="btn waiting" target="_BLANK" title="文件大小: <?=$filesize_fmt?>" href="./res.php?action=edit&amp;res=<?=$res?>">审核资源</a>
+                        <a class="btn-floating waiting" target="_BLANK" title="文件大小: <?=$filesize_fmt?>" href="./res.php?action=edit&amp;res=<?=$res?>">审核资源</a>
 <?php       }else if(STATUS_CHECKING == $status){ ?>
-                        <a class="btn disabled" target="_BLANK" title="文件大小: <?=$filesize_fmt?>">正在审核</a>
+                        <a class="btn-floating disabled" target="_BLANK" title="文件大小: <?=$filesize_fmt?>">正在审核</a>
 <?php       }else if(STATUS_PUBLISHED == $status){ ?>
-                        <a class="btn download" target="_BLANK" href="<?=$downloadurl?>"
+                        <a class="btn-floating download" target="_BLANK" href="<?=$downloadurl?>"
                        title="文件大小: <?=$filesize_fmt?>&#13;下载人次: <?=$count_download?>">安装资源</a>
 <?php       } ?>
-                        <a class="btn"     target="_BLANK" href="<?=$viewurl?>">查看详情</a>
+                        <a class="btn-floating"     target="_BLANK" href="<?=$viewurl?>">查看详情</a>
 <?php       if($canedit){?>
-                        <a class="btn"     target="_BLANK" href="./res.php?action=edit&amp;res=<?=$res?>">编辑资源</a>
-                        <a class="btn del" target="_BLANK" href="./res.php?action=del&amp;res=<?=$res?>">删除资源</a>
+                        <a class="btn-floating"     target="_BLANK" href="./res.php?action=edit&amp;res=<?=$res?>">编辑资源</a>
+                        <a class="btn-floating del" target="_BLANK" href="./res.php?action=del&amp;res=<?=$res?>">删除资源</a>
 <?php       } ?>
                     </div>
                     <a alt="查看详情" target="_BLANK" href="<?=$viewurl?>" class="content<?=$mainimg?'':' content-textonly'?>"><?=isset($row['content'][0]) ? htmlspecialchars($row['content']) : '未填写资源简介'?></a>

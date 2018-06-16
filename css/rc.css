@@ -217,7 +217,7 @@ h1, h2, h3, h4, h5, h6{
     display: flex;
     width: initial;
 }
-.lsres .res .ctrl .btn{
+.lsres .res .ctrl .btn-floating{
     white-space: nowrap;
     text-align: center;
     font-size: 12px;
@@ -240,26 +240,27 @@ h1, h2, h3, h4, h5, h6{
     left: 0em;
     transition: left 0.1s;
 }
-.lsres .res .ctrl .btn[href]{
+.lsres .res .ctrl .btn-floating[href]{
     cursor: url("../cursor/aoe2hand.cur"), pointer;
 }
-.lsres .res .ctrl .btn[href]:hover{
+.lsres .res .ctrl .btn-floating[href]:hover{
     left: -1em;
     transition: left 0.1s;
 }
 .lsres .res .ctrl .btn.disabled{
+.lsres .res .ctrl .btn-floating.disabled{
     color: #888
 }
-.lsres .res .ctrl .btn.info    {
+.lsres .res .ctrl .btn-floating.info    {
     color: #FF0
 }
-.lsres .res .ctrl .btn.link    {
+.lsres .res .ctrl .btn-floating.link    {
     color: #F88
 }
-.lsres .res .ctrl .btn.download{
+.lsres .res .ctrl .btn-floating.download{
     color: #F0F
 }
-.lsres .res .ctrl .btn.del     {
+.lsres .res .ctrl .btn-floating.del     {
     color: #F00
 }
 .lsres .res .content{
@@ -297,8 +298,85 @@ h1, h2, h3, h4, h5, h6{
     opacity: 0.2;
 }
 
+/* 用于操作的面板 */
+.panel{
+    display: inline-block;
+    vertical-align: text-top;
+    padding: 1em;
+    background-color: #E9BB7B;
+    background-image: url('//www.hawkaoe.net/bbs/images/aoc/kabg.gif');
+}
 
-/* 表单排版 */
+.btn,
+.btn-small
+{
+    color: white;
+    background-color: #937150;
+    font-size: 12px;
+    font-weight: 800;
+    text-shadow:
+    -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,
+    -1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000,-1px 1px 0 #000;
+    border-top:    solid 1px #D8DFFF;
+    border-right:  solid 1px #D8DFFF;
+    border-bottom: solid 1px #462006;
+    border-left:   solid 1px #462006;
+    box-shadow:
+    0 -1px 0 #57391B inset,
+    1px  0 0 #57391B inset,
+    0  1px 0 #FFE2A1 inset,
+    -1px 0 0 #FFE2A1 inset;
+    text-decoration: none;
+    line-height: 1.5em;
+    transition: border 0.8s, box-shadow 0.8s, text-shadow 0.5s;
+    padding: 4px;
+}
+
+.btn:hover,
+.btn-small:hover
+{
+    cursor: url("../cursor/aoe2hand.cur"), pointer;
+}
+.btn:active,
+.btn-small:active
+{
+    transition: border 0.2s, box-shadow 0.2s, text-shadow 0.2s;
+    text-shadow:
+        1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+        1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    border-top:    solid 1px #462006;
+    border-right:  solid 1px #462006;
+    border-bottom: solid 1px #D8DFFF;
+    border-left:   solid 1px #D8DFFF;
+    box-shadow:
+    0  1px 0 #57391B inset,
+    -1px 0 0 #57391B inset;
+}
+
+.btn:disabled,
+.btn-small:disabled{
+    transition: border 0.2s, box-shadow 0.2s, text-shadow 0.2s;
+    color: #CC9F65;
+    text-shadow:
+        1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
+        1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
+    background-color: #57391B;
+    border-top:    solid 1px #462006;
+    border-right:  solid 1px #462006;
+    border-bottom: solid 1px #D8DFFF;
+    border-left:   solid 1px #D8DFFF;
+}
+
+.btn{
+    min-width: 20em;
+}
+
+.btn-small{
+    min-width: 10em;
+}
+
+
+/* 表单排版(旧) */
 .steps{
     display: flex;
     flex-wrap: wrap;
@@ -312,7 +390,7 @@ h1, h2, h3, h4, h5, h6{
     background-color: #E9BB7B;
     background-image: url('//www.hawkaoe.net/bbs/images/aoc/kabg.gif');
 }
-.form [type], .form select, .form>a{
+.form [type], .form select, .form .btn{
     background:  rgba(0,0,0, 0.8);
     border-bottom: solid 1px #EEEAA3;
     border-left:   solid 1px #EEEAA3;
@@ -333,7 +411,7 @@ h1, h2, h3, h4, h5, h6{
     text-shadow: 1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000;
     vertical-align: middle;
 }
-.form [type]::selection, .form select::selection, .form>a::selection{
+.form [type]::selection, .form select::selection, .form .btn::selection{
     background-color: white;
 }
 .form [type="text"],.form *[type="password"]{
@@ -350,7 +428,7 @@ h1, h2, h3, h4, h5, h6{
     display: block;
     padding: 0 1em;
 }
-.form, .form *[type="submit"], .form *[type="button"], .form>a{
+.form, .form *[type="submit"], .form *[type="button"], .form .btn{
     color: white;
     font-size: 12px;
     text-shadow:
@@ -369,10 +447,10 @@ h1, h2, h3, h4, h5, h6{
     line-height: 1.5em;
     transition: border 0.8s, box-shadow 0.8s, text-shadow 0.5s;
 }
-.form [type="submit"], .form [type="button"], .form>a{
+.form [type="submit"], .form [type="button"], .form .btn{
     background-color: #937150;
 }
-.form [type="submit"]:active, .form [type="button"]:active, .form>a:active{
+.form [type="submit"]:active, .form [type="button"]:active, .form .btn:active{
     transition: border 0.2s, box-shadow 0.2s, text-shadow 0.2s;
     text-shadow:
         1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,1px -1px 0 #000,
@@ -385,7 +463,7 @@ h1, h2, h3, h4, h5, h6{
     0  1px 0 #57391B inset,
     -1px 0 0 #57391B inset;
 }
-.form [type="submit"]:disabled, .form [type="button"]:disabled, .form>a:disabled{
+.form [type="submit"]:disabled, .form [type="button"]:disabled, .form .btn:disabled{
     transition: border 0.2s, box-shadow 0.2s, text-shadow 0.2s;
     color: #CC9F65;
     text-shadow:

@@ -137,14 +137,11 @@ mkHeader($title);
                         所在目录：<br /><select name="dir" <?=$canedit?'':'disabled'?>>
                             <option value="<?=encodeCSID(0)?>"><?=htmlspecialchars("/")?></option>
 <?php           while($rowdir = mysql_fetch_array($lsdir)){
-                    //神奇的魔法, 勿动
-                    echo "啊啊啊啊啊啊啊啊啊啊啊啊啊啊";
-                    
                     $dir            = encodeCSIDInsider($rowdir['id']);
                     $dirpath        = $rowdir['dirpath']; ?>
-                            <option value="<?=$dir?>"
-                                <?= isset($_POST['dir']) && ($_POST['dir'] == $dir ) ? ' selected="selected"':''?>
-                                ><?=htmlspecialchars($dirpath)?></option>
+                            <option value="<?=$dir?>"<?=
+                                isset($_POST['dir']) && ($_POST['dir'] == $dir ) ? ' selected="selected"':''
+                                ?>><?=htmlspecialchars($dirpath)?></option>
 <?php           } ?>
                         </select><br />
                         <input type="hidden" name="res" value="<?=$res?>" />
@@ -181,26 +178,24 @@ mkHeader($title);
 <?php   } ?>
             </div>
             <h2>资源文件列表</h2>
-            <div class="lsres">
+            <table  class="form">
 <?php
         if($result = mysql_query("SELECT f.id, PathFile(f.id) path, f.filename, d.size FROM resfile f INNER JOIN resdat d ON f.datid=d.id AND f.resid=$resid AND f.deleted=0 ORDER BY CONVERT(path USING gbk)") )
         while($row = mysql_fetch_array($result)){
             $csid     = encodeCSID($row['id']);
             $path     = $row['path'];
-            $size     = $row['size'].'Byte';
+            $size     = $row['size'].'B';
             $filename = $row['filename'];
             $urlsee   = './res.php?file='.$csid."&filename=$filename";
             $urldel   = './res.php?file='.$csid.'&'.'action=del'; ?>
-                <div class="res res-file">
-                    <div class="name"><?=$path?></div>
-                    <div class="ctrl">
-                        <a class="btn info"><?=$size?> 大小</a>
-                        <a class="btn" target="_blank" href="<?=htmlspecialchars($urlsee)?>">下载文件</a>
-                        <a class="btn del" href="<?=htmlspecialchars($urldel)?>">删除文件</a>
-                    </div>
-                </div>
+                <tr class="res res-file" style="text-align: left">
+                    <td><a class="name"><?=$path?></a></td>
+                    <td><a class="info"><?=$size?></a></td>
+                    <td><a class="btn-small" target="_blank" href="<?=htmlspecialchars($urlsee)?>">下载文件</a></td>
+                    <td><a class="btn-small del" href="<?=htmlspecialchars($urldel)?>">删除文件</a></td>
+                </tr>
 <?php   } ?>
-            </div>
+            </table>
             <h2>资源图片列表</h2>
             <div class="lsres">
 <?php   if($result=mysql_query('SELECT * FROM resimg WHERE resid='.$resid) )
@@ -215,12 +210,12 @@ mkHeader($title);
                 <div class="res" style="background-image: url(&quot;<?=htmlspecialchars($urlsee)?>&quot;)">
                     <div class="name"><?=$comment?></div>
                     <div class="ctrl">
-                        <a class="btn info"><?=$w.'*'.$h?> 尺寸</a>
-                        <a class="btn" target="_blank" href="<?=htmlspecialchars($urlsee)?>">查看大图</a>
-                        <a class="btn del" href="<?=htmlspecialchars($urldel)?>">删除图片</a>
-                        <a class="btn info">_</a>
-                        <a class="btn info">_</a>
-                        <a class="btn info">_</a>
+                        <a class="btn-floating info"><?=$w.'*'.$h?> 尺寸</a>
+                        <a class="btn-floating" target="_blank" href="<?=htmlspecialchars($urlsee)?>">查看大图</a>
+                        <a class="btn-floating del" href="<?=htmlspecialchars($urldel)?>">删除图片</a>
+                        <a class="btn-floating info">　</a>
+                        <a class="btn-floating info">　</a>
+                        <a class="btn-floating info">　</a>
                     </div>
                 </div>
 <?php   } ?>
