@@ -11,34 +11,68 @@ require_once('cres.php');
 
 **/
 if(isset($_GET['img'])){
-    $id     = decodeCSID($_GET['img']);
-    $action = DStr($_GET['action'], 'ls');
+    $id_file     = decodeCSID($_GET['img']);
+    $action = DStr($_GET['action'], 'download');
     switch($action){
     case 'del':
         CheckLogin("DIE");
-        $msg = CRes::DelImg($id);
+        $msg = CRes::DelImg($id_file);
         setcookie("msg",$msg,time()+20);
         if(isset($_SERVER['HTTP_REFERER'])) header('location:'.$_SERVER['HTTP_REFERER']);
         echo $msg;
         exit();
-    case 'ls':
-        header('location:'.CRes::UrlImg($id));
+    case 'download':
+        header('location:'.CRes::UrlImg($id_file));
         exit();
     }
 }
 if(isset($_GET['file'])){
-    $id = decodeCSID($_GET['file']);
-    $action = DStr($_GET['action'], 'ls');
+    $id_file = decodeCSID($_GET['file']);
+    $action = DStr($_GET['action'], 'download');
+    $filename = DStr($_GET['filename'], 'hawkaoc');
     switch($action){
     case 'del':
         CheckLogin("DIE");
-        $msg = CRes::DelFile($id);
+        $msg = CRes::DelFile($id_file);
         setcookie("msg",$msg,time()+20);
         if(isset($_SERVER['HTTP_REFERER'])) header('location:'.$_SERVER['HTTP_REFERER']);
         echo $msg;
         exit();
-    case 'ls':
-        header('location:'.CRes::UrlFile($id) );
+    case 'download':
+        //header('location:'.CRes::UrlFile($id_file) );
+
+        $filePath = CRes::UrlFile($id_file);
+
+        $fileHandle=fopen($filePath,"rb");
+        if($fileHandle === false){
+            PageError('文件不存在，请联系翔鹰制作组管理员 QQ群：434763036');
+        }
+
+        //die(urlencode($filename));
+        //文件类型是二进制流。设置为utf8编码（支持中文文件名称）
+        header('Content-type: application/octet-stream; charset=utf-8');
+        header("Content-Transfer-Encoding: binary");
+        header("Accept-Ranges: bytes");
+        
+        //文件大小
+        header("Content-Length: " . filesize($filePath));
+
+        //触发浏览器文件下载功能
+        // header('Content-Disposition:attachment;filename="' . $filename.'"');
+        
+        header('Content-Disposition:attachment;filename="' . str_replace('"', '\\"', $filename) . '"');
+
+        //循环读取文件内容，并输出
+        while(!feof($fileHandle)) {
+            //从文件指针 handle 读取最多 length 个字节（每次输出8k）
+            print(fread($fileHandle, 1024*8));
+            ob_flush();
+            flush();
+        }
+
+        //关闭文件流
+        fclose($fileHandle);
+
         exit();
     }
 }
@@ -394,6 +428,9 @@ if(isset($_GET['res'])){
 <?php   mkFooter();
         exit();
     case 'edit':
+        // 资源编辑页面转移到 res_edit.php
+        header("location: ./res_edit.php?res=" . $_GET['res']);
+
         CheckLogin("DIE");
         if(!$cRes->PermissionQ("Edit")) pageError('你不能编辑这个资源', encodeCSID($resid));
         $canedit   = $cRes->PermissionQ("Edit");

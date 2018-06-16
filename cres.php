@@ -286,13 +286,18 @@ class CRes{
     private        function Exist       (                                      ){//_
         $this->row       = self::QRow("SELECT * FROM res WHERE id={$this->id} LIMIT 1", '定位资源', $this->id);
         if($this->row === false) PageError('该资源不存在', $this->id);
-        //$this->canEdit   = self::CanEdit(  $this->row);
-        //$this->canManage = self::CanManage($this->row);
-        //$this->canSee    = self::CanSee(   $this->row);
-        //$this->status    = (int)$this->row['status'  ];
-        //$this->editing   = STATUS_EDITING == $this->status;
-        //$this->checking  = STATUS_CHECKING == $this->status;
-        //$this->published = STATUS_PUBLISHED == $this->status;
+        
+        // $this->canEdit   = self::CanEdit(  $this->row);
+        // $this->canManage = self::CanManage($this->row);
+        // $this->canSee    = self::CanSee(   $this->row);
+        
+        // 这段不知道为啥曾经被注释掉过
+        $this->status    = (int)$this->row['status'  ];
+        $this->editing   = STATUS_EDITING == $this->status;
+        $this->checking  = STATUS_CHECKING == $this->status;
+        $this->published = STATUS_PUBLISHED == $this->status;
+        // 现在给它恢复了(20180616)
+
         return $this->row;
     }/* 返回: DIE|$row    */
     private        function Update      ($ex = ',status=0'                     ){//_
