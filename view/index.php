@@ -141,7 +141,7 @@ while($row = mysql_fetch_array($result)){
       }
     </style>
     <link rel="stylesheet" type="text/css" href="css/rc.css">
-    <link rel="stylesheet" type="text/css" href="./view.css">
+    <link rel="stylesheet" type="text/css" href="css/view.css">
     <!-- <script type="text/javascript" src="http://cssrefresh.frebsite.nl/js/cssrefresh.js"></script> -->
     <title><?=htmlspecialchars($txt_title)?> - 帝国资源中心</title>
   </head><body>

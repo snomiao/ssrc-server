@@ -34,6 +34,7 @@ require_once('func.php');
 require_once('user-config/config.inc.php');
 
 define('UPDIR', dirname(__FILE__).'/rcdat');
+
 define('STATUS_EDITING'  , 0);
 define('STATUS_CHECKING' , 1);
 define('STATUS_PUBLISHED', 2);
