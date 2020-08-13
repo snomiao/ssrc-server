@@ -1,5 +1,8 @@
+# 资源中心接口文档
+
 ## 账号管理系统
 
+```
 @ 登录
     post: login.php
     data: p=密码&u=用户
@@ -32,9 +35,11 @@
 @ 登出
     get : login.php
     data: logout
+```
 
 ## 资源管理系统
 
+```
 @ 下载图片
     get : res.php
         data: action=ls&img=图片编号
@@ -63,13 +68,13 @@
 @ 设置兼容版本
     post: res.php
     data: res=资源编号&action=b_gamebase
-        &o=兼容red  其它版本   /?????.exe
+        &o=兼容red  其它版本   /_______.exe
         &r=兼容red  红帽子     /empires2.exe
         &a=兼容1.0a 蓝帽子1.0a /age2_x1.exe
         &c=兼容1.0c 蓝帽子1.0c /age2_x1/age2_x1.exe
-        &4=兼容1.4  蓝帽子1.4  /age2_x1/???
+        &4=兼容1.4  蓝帽子1.4  /age2_x1/_____________
         &f=兼容forg 遗忘的帝国 绿帽子
-        &m=兼容mod  带mod的帝国 黑帽子 /????
+        &m=兼容mod  带mod的帝国 黑帽子 /_____________
     以上选项
         填=Yes为勾选
         不填为取消勾选
@@ -77,18 +82,20 @@
     post: res.php
     data: res=资源编号&action=b_gamebase
     返回值
-        o; 兼容red  其它版本   /?????.exe
+        o; 兼容red  其它版本   /_______.exe
         r; 兼容red  红帽子     /empires2.exe
         a; 兼容1.0a 蓝帽子1.0a /age2_x1.exe
         c; 兼容1.0c 蓝帽子1.0c /age2_x1/age2_x1.exe
-        4; 兼容1.4  蓝帽子1.4  /age2_x1/???
+        4; 兼容1.4  蓝帽子1.4  /age2_x1/_____________
         f; 兼容forg 遗忘的帝国 绿帽子
-        m; 兼容mod  带mod的帝国 黑帽子 /????
+        m; 兼容mod  带mod的帝国 黑帽子 /_____________
     返回值例: "a;c;4;"
     注: 以后版本标号不一定只有一个字母
+```
 
 ## 权限管理系统
 
+```
 @ 可编辑
     post: res.php
     data: res=资源编号&action=canEdit
@@ -98,9 +105,11 @@
 @ 可视
     post: res.php
     data: res=资源编号&action=canSee
+```
 
 ## 文件管理系统
 
+```
 @ 上传文件(256M以内)
     post: res.php
     data: res=资源编号&action=upload&resfile[]=文件列表&dir=目录编号
@@ -120,9 +129,11 @@
 @ 删除目录
     post: res.php
     data: action=deldir&dir=目录编号
+```
 
 ## 社交管理系统
 
+```
 @ 发表评论
     post: res.php
     data: res=资源编号&action=CreateComment&content=评论理由&vote=评论
@@ -152,12 +163,15 @@
 @ XX评分
     post: res.php
     data: res=资源编号&action=ReviewXX&rvw=评分编号
+```
 
 ## 查询索引系统
 
+```
 暂未开放: @ 贴标签
 暂未开放:     post: res.php
 暂未开放:     data: res=资源编号&action=newtag&tagname=标签名称
 暂未开放: @ 撕标签
 暂未开放:     post: res.php
 暂未开放:     data: res=资源编号&action=deltag&tag=标签编号
+```
