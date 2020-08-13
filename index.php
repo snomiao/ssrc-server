@@ -91,11 +91,11 @@ case 'view':
             <div class="lsres">
 <?php
     if(CheckLogin()){ ?>
-                <div class="res me" style="background-image: url(&quot;http://www.hawkaoe.net/bbs/uc_server/avatar.php?size=large&amp;uid=<?=$_SESSION['bbs_uid']?>&quot;)">
+                <div class="res me" style="background-image: url(&quot;//www.hawkaoe.net/bbs/uc_server/avatar.php?size=large&amp;uid=<?=$_SESSION['bbs_uid']?>&quot;)">
                     <div class="name"><?=$_SESSION['bbs_uname']?></div>
                     <div class="ctrl">
                         <a class="btn-floating new" href="./res.php?action=new">创建资源</a>
-                        <a class="btn-floating link" href="http://www.hawkaoe.net">论坛首页</a>
+                        <a class="btn-floating link" href="//www.hawkaoe.net" >论坛首页</a>
                         <a class="btn-floating del" href="./login.php?logout=">登出账号</a>
                     </div>
                     <div class="content"></div>

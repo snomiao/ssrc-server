@@ -1,11 +1,5 @@
-<?php die('这都找得到…少年你可以联系雪星了(997596@gmail.com)');
-/**
+## 账号管理系统
 
-
-    账号管理系统
-
-
-**/
 @ 登录
     post: login.php
     data: p=密码&u=用户
@@ -38,13 +32,9 @@
 @ 登出
     get : login.php
     data: logout
-/**
 
+## 资源管理系统
 
-    资源管理系统
-
-
-**/
 @ 下载图片
     get : res.php
         data: action=ls&img=图片编号
@@ -96,9 +86,9 @@
         m; 兼容mod  带mod的帝国 黑帽子 /????
     返回值例: "a;c;4;"
     注: 以后版本标号不一定只有一个字母
-/**
-    权限管理系统
-**/
+
+## 权限管理系统
+
 @ 可编辑
     post: res.php
     data: res=资源编号&action=canEdit
@@ -108,9 +98,9 @@
 @ 可视
     post: res.php
     data: res=资源编号&action=canSee
-/**
-    文件管理系统
-**/
+
+## 文件管理系统
+
 @ 上传文件(256M以内)
     post: res.php
     data: res=资源编号&action=upload&resfile[]=文件列表&dir=目录编号
@@ -130,9 +120,9 @@
 @ 删除目录
     post: res.php
     data: action=deldir&dir=目录编号
-/**
-    社交管理系统
-**/
+
+## 社交管理系统
+
 @ 发表评论
     post: res.php
     data: res=资源编号&action=CreateComment&content=评论理由&vote=评论
@@ -162,9 +152,9 @@
 @ XX评分
     post: res.php
     data: res=资源编号&action=ReviewXX&rvw=评分编号
-/**
-    查询索引系统
-**/
+
+## 查询索引系统
+
 暂未开放: @ 贴标签
 暂未开放:     post: res.php
 暂未开放:     data: res=资源编号&action=newtag&tagname=标签名称

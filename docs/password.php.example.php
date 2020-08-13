@@ -5,6 +5,7 @@ define('DB_CHARSET' , '//');
 define('DB_HOST'    , '//');
 define('DB_USERNAME', '//');
 define('DB_PASSWORD', '//');
+
 // Discuz 论坛，只读权限
 define('BBS_DB_NAME'    , '//');
 define('BBS_DB_CHARSET' , '//');

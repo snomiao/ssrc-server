@@ -45,3 +45,6 @@ google*.html
 # sublime项目
 sftp-config.json
 *.sublime-*
+
+# vscode
+.vscode/
