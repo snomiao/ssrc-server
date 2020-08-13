@@ -51,7 +51,7 @@ class CRes
     public $id; /* 资源id */
     public $row;
     // MySql         //_
-    public  static function QRow($query, $act, $resid = null)
+    public  static function QRow($query, $act = "查询", $resid = null)
     { //_
         /* 查询一行, 返回 $row */
         $result = mysql_query($query);
@@ -73,7 +73,7 @@ class CRes
         if (!$result) return false;
         return mysql_fetch_array($result);
     }/* 返回: false|$row    */
-    public  static function Q($query, $act, $resid = null)
+    public  static function Q($query, $act = "查询", $resid = null)
     { //_
         /* 查询, 返回 $result */
         $result = mysql_query($query);
@@ -123,19 +123,19 @@ class CRes
     { //_
         /* 未知 */
         $sha1 = strtolower($sha1);
-        $size = (int)$size;
+        $size = (int) $size;
         return self::MkDir(UPDIR) . "/$sha1.$size.png";
     }/* 返回: path           */ /* */
     private static function PathDatUser($sha1, $size)
     { //_
         $sha1 = strtolower($sha1);
-        $size = (int)$size;
+        $size = (int) $size;
         return './rcdat' . "/$sha1.$size.png";
     }/* 返回: uri            */ /* */
     private static function GetDatId($sha1, $size)
     { //_
         $row        = self::QRowNoErr("SELECT id FROM resdat WHERE sha1=X'$sha1' AND size=$size LIMIT 1");
-        return $row ? (int)$row['id'] : (int)0;
+        return $row ? (int) $row['id'] : (int) 0;
     }/* 返回: $datid|0       */ /* 取得数据文件id */
     private static function UpDat($f, &$img = null)
     { //_
@@ -146,9 +146,9 @@ class CRes
         // 图片检测
         if ($img) {
             if (($img = getimagesize($f['tmp_name'])) === false)       return '上传失败，文件格式不对';
-            $w       = (int)$img[0];
-            $h       = (int)$img[1];
-            $type    = (int)$img[2];
+            $w       = (int) $img[0];
+            $h       = (int) $img[1];
+            $type    = (int) $img[2];
             if ($type == 6)                                            return '这里不能上传bmp格式的图片！';
         }
         // 去重
@@ -167,7 +167,7 @@ class CRes
             }
             $datid = mysql_insert_id();
         }
-        return (int)$datid;
+        return (int) $datid;
     }/* 返回: $datid | error */ /* 上传数据文件   */
     private static function DelDat($id)
     { //_
@@ -175,24 +175,24 @@ class CRes
         $lsresid = "";
         if (!$row = self::QRowNoErr("SELECT COUNT(c.resid) count FROM (SELECT resid FROM resfile a WHERE a.datid=$id LIMIT 1 UNION ALL SELECT resid FROM resimg b WHERE b.datid=$id LIMIT 1) c"))
             return '该文件不曾存在，' . encodeCSID($id);
-        if (0 != (int)$row['count']) return (int)0;
+        if (0 != (int) $row['count']) return (int) 0;
         // 获取文件名
         if (!$row = self::QRowNoErr("SELECT HEX(sha1) sha1, size FROM resdat WHERE id=$id LIMIT 1"))
             return '该文件已不存在，' . encodeCSID($id);
         $sha1 = $row['sha1'];
-        $size = (int)$row['size'];
+        $size = (int) $row['size'];
         $path = self::PathDat($sha1, $size);
         // 删除
         if (!self::QNoErr("DELETE FROM resdat WHERE id=$id"))
             return '服务器忙，请稍候再试，' . encodeCSID($id);
         unlink($path);
-        return (int)$id;
+        return (int) $id;
     }/* 返回: error|$datid   */ /* 删除数据文件   */
     // ResPermission //_
     public  static function GlobalPermissionQ($permission)
     { //_
         //$is_manager     = false;
-        $is_manager     = in_array((int)$_SESSION['bbs_groupid'], array(1, 2, 3));
+        $is_manager     = in_array((int) $_SESSION['bbs_groupid'], array(1, 2, 3));
         //$zyzx_medal = true;
         $zyzx_medal     = in_array(110, $_SESSION['bbs_umedals']);
         switch ($permission) {
@@ -219,13 +219,10 @@ class CRes
     }/* 返回: boolean */
     public  static function ResPermissionQ($permission, $row)
     { //_
-        $status         = (int)$row['status'];
-        $is_author      = !isset($row['author_bbsid']) || !isset($_SESSION['bbs_uid']) ? false :
-            (int)$row['author_bbsid']  ==   (int)$_SESSION['bbs_uid'];
-        $is_manager     = !isset($_SESSION['bbs_groupid']) ? false :
-            in_array((int)$_SESSION['bbs_groupid'], array(1, 2, 3)); // || (int)$_SESSION['bbs_uid']==103896;
-        $zyzx_medal     = !isset($_SESSION['bbs_umedals']) ? false :
-            in_array(110, $_SESSION['bbs_umedals']);
+        $status         = (int) $row['status'];
+        $is_author      = !isset($row['author_bbsid']) || !isset($_SESSION['bbs_uid']) ? false : (int) $row['author_bbsid']  ==   (int) $_SESSION['bbs_uid'];
+        $is_manager     = !isset($_SESSION['bbs_groupid']) ? false : in_array((int) $_SESSION['bbs_groupid'], array(1, 2, 3)); // || (int)$_SESSION['bbs_uid']==103896;
+        $zyzx_medal     = !isset($_SESSION['bbs_umedals']) ? false : in_array(110, $_SESSION['bbs_umedals']);
 
         $permissions = array();
 
@@ -254,23 +251,23 @@ class CRes
     { //_
         switch ($permission) {
             case "Delete":
-                return (int)$row['author_bbsid'] == (int)$_SESSION['bbs_uid'];
+                return (int) $row['author_bbsid'] == (int) $_SESSION['bbs_uid'];
         }
     }/* 返回: boolean */
     public  static function ResCommentPermissionQ($permission, $row)
     { //_
-        $is_author = (int)$row['author_bbsid'] == (int)$_SESSION['bbs_uid'];
+        $is_author = (int) $row['author_bbsid'] == (int) $_SESSION['bbs_uid'];
         switch ($permission) {
             case "Edit":
                 return $is_author;
             case "Delete":
-                return $is_author | $is_manager;
+                return $is_author; //| $is_manager;
         }
     }/* 返回: boolean */
     public  static function ResDirPermissionQ($permission, $row)
     { //_
-        $is_author = (int)$row['author_bbsid'] == (int)$_SESSION['bbs_uid'];
-        $is_manager     = in_array((int)$_SESSION['bbs_groupid'], array(1, 2, 3)); // || (int)$_SESSION['bbs_uid']==103896;
+        $is_author = (int) $row['author_bbsid'] == (int) $_SESSION['bbs_uid'];
+        $is_manager     = in_array((int) $_SESSION['bbs_groupid'], array(1, 2, 3)); // || (int)$_SESSION['bbs_uid']==103896;
         switch ($permission) {
             case "Edit":
                 return $is_author;
@@ -316,7 +313,7 @@ class CRes
     }/* 返回: DIE|$resid  */
     public         function __construct($id)
     { //_
-        $this->id          = (int)$id;
+        $this->id          = (int) $id;
         $this->exist       = $this->Exist();
         //$this->permissions = $this->ResPermissions();
     }/* 返回: DIE|null    */
@@ -330,7 +327,7 @@ class CRes
         // $this->canSee    = self::CanSee(   $this->row);
 
         // 这段不知道为啥曾经被注释掉过
-        $this->status    = (int)$this->row['status'];
+        $this->status    = (int) $this->row['status'];
         $this->editing   = STATUS_EDITING == $this->status;
         $this->checking  = STATUS_CHECKING == $this->status;
         $this->published = STATUS_PUBLISHED == $this->status;
@@ -368,7 +365,7 @@ class CRes
 
         $result = self::Q("SELECT id FROM resfile WHERE resid={$this->id}", '定位资源文件', $this->id);
         while ($row = mysql_fetch_array($result)) {
-            $id_file    = (int)$row['id'];
+            $id_file    = (int) $row['id'];
             self::DelFile($id_file);
         }
         return self::Q('UPDATE res SET status=' . STATUS_DELETED . " WHERE id={$this->id}", '删除资源', $this->id);
@@ -391,7 +388,7 @@ class CRes
         $result = self::Q("SELECT id FROM resfile WHERE resid={$this->id} AND dirid=$dirid AND filename=$filename", '检查重复文件', $this->id);
         $count_del   = 0;
         while ($row = mysql_fetch_array($result)) {
-            $id_file    = (int)$row['id'];
+            $id_file    = (int) $row['id'];
             self::DelFile($id_file);
             $count_del++;
         }
@@ -404,7 +401,7 @@ class CRes
         // SQL安全检查
         $filename = IStr($f['name']);
         $dirid    = IInt($dirid);
-        $size     = (int)$f['size'];
+        $size     = (int) $f['size'];
         // 重名检查
         $creplace = $this->DelFileDuplicate($dirid, $filename);
         // 上传文件
@@ -421,8 +418,8 @@ class CRes
         $img = 1;
         if (!is_int($datid = $this->UpDat($f, $img)))      return $datid . '，' . $f['name'];
         // 取宽高
-        $w       = (int)$img[0];
-        $h       = (int)$img[1];
+        $w       = (int) $img[0];
+        $h       = (int) $img[1];
         $comment = IStr($f['name']);
         // 綁定文件
         $query = "INSERT INTO resimg SET t_update=UNIX_TIMESTAMP(CURRENT_TIMESTAMP),resid={$this->id}";
@@ -434,12 +431,12 @@ class CRes
     public  static function DelFile($id)
     { //_
         // SQL安全检查
-        $id = (int)$id;
+        $id = (int) $id;
         // 取文件关系
         $row = self::QRow("SELECT datid, resid, filename FROM resfile WHERE id=$id", '定位文件' . encodeCSID($id));
         if ($row === false)                           PageError('该文件不曾存在，' . encodeCSID($id));
-        $resid = (int)$row['resid'];
-        $datid = (int)$row['datid'];
+        $resid = (int) $row['resid'];
+        $datid = (int) $row['datid'];
         // $self为 CRes类
         $self  = new self($resid);
         if (!$self->PermissionQ("Edit")) PageError('无权编辑该资源', encodeCSID($resid));
@@ -453,13 +450,13 @@ class CRes
     public  static function DelImg($id)
     { //_
         //SQL安全检查
-        $id = (int)$id;
+        $id = (int) $id;
         // 取文件关系
         $row = self::QRow("SELECT datid, resid, comment FROM resimg WHERE id=$id", '定位图片' . encodeCSID($id));
         if ($row === false) PageError('该图片不曾存在，' . encodeCSID($id));
         //检查权限
-        $resid = (int)$row['resid'];
-        $datid = (int)$row['datid'];
+        $resid = (int) $row['resid'];
+        $datid = (int) $row['datid'];
         $self  = new self($resid);
         if (!$self->PermissionQ("Edit")) PageError('无权编辑该资源', encodeCSID($resid));
         //删除
@@ -592,9 +589,9 @@ class CRes
     public  static function DeleteComment(&$cmt)
     { //_
         $id = decodeCSID($cmt);
-        $row = self::QRow("SELECT author_bbsid FROM rescomment WHERE id=$id");
+        $row = self::QRow("SELECT author_bbsid FROM rescomment WHERE id=$id", "删除评分");
         if ($row === false)        PageError('该评论不曾存在，' . encodeCSID($id));
-        if (!self::ResCommentPermissionQ("Delete", $row))                    PageError('无权删除该评分', $resid);
+        if (!self::ResCommentPermissionQ("Delete", $row)) PageError('无权删除该评论');
         return self::Q("DELETE FROM rescomment WHERE id=$id", '删除评论');
     }/* 返回: DIE|true  */
     public  static function CommentOO(&$cmt)
@@ -632,9 +629,9 @@ class CRes
     public  static function DeleteReview(&$rvw)
     { //_
         $id = decodeCSID($rvw);
-        $row = self::QRow("SELECT author_bbsid FROM resreview WHERE id=$id");
+        $row = self::QRow("SELECT author_bbsid FROM resreview WHERE id=$id", '查找作者');
         if ($row === false)        PageError('该评分不曾存在，' . encodeCSID($id));
-        if (!self::ResReviewPermissionQ("Delete", $row))                    PageError('无权删除该评分', $resid);
+        if (!self::ResReviewPermissionQ("Delete", $row))                    PageError('无权删除该评分');
         $re = self::Q("DELETE FROM resreview WHERE id=$id", '删除评分');
         $this->UpdateVoteReview();
         return $re;
@@ -656,18 +653,14 @@ class CRes
     // Tag           //_
     public  static function CreateTag($comment, $vote)
     {
-        /* 填坑？ */
-    }
+        /* 填坑？ */ }
     public  static function DeleteTag($id)
     {
-        /* 填坑？ */
-    }
+        /* 填坑？ */ }
     public         function BindTag($id)
     {
-        /* 填坑？ */
-    }
+        /* 填坑？ */ }
     public  static function DeleteTagRel($id)
     {
-        /* 填坑？ */
-    }
+        /* 填坑？ */ }
 }

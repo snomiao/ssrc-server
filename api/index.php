@@ -47,7 +47,7 @@ function jsonLsFile()
     $timestamp = (int)$_GET['t'];
 
     $result = CRes::Q("SELECT f.id AS id,f.t_update AS t_update,PathFile(f.id) AS path,HEX(d.sha1) AS sha1,f.size AS size,f.deleted AS deleted FROM resfile AS f LEFT JOIN resdat AS d ON f.datid=d.id WHERE f.resid=$resid AND f.t_update>=$timestamp", '检索资源文件');
-    $t_fileup = (int) mysql_fetch_array(CRes::Q("SELECT t_fileup FROM res WHERE id=$resid"))['t_fileup'];
+    $t_fileup = (int) mysql_fetch_array(CRes::Q("SELECT t_fileup FROM res WHERE id=$resid", "列出文件更新时间"))['t_fileup'];
     $json_lsfile = array();
     while ($row = mysql_fetch_array($result)) {
         $json_lsfile[] = array(
